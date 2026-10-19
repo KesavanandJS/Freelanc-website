@@ -9,7 +9,6 @@ from pathlib import Path
 # ---------------------------------------------------------------------------
 BRAND = "PixelLoom"
 DOMAIN = "https://pixelloom.in"          # your final domain, no trailing slash
-OWNER = "Poornima"
 WHATSAPP = "91XXXXXXXXXX"                 # country code + number, digits only
 PHONE_DISPLAY = "+91 XXXXX XXXXX"
 EMAIL = "hello@pixelloom.in"
@@ -18,7 +17,8 @@ GBP_URL = ""                              # Google Business Profile URL once liv
 CITIES = ["Coimbatore", "Tiruppur"]
 
 FONTS = ("https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400..700"
-         "&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap")
+         "&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500"
+         "&family=Caveat:wght@600;700&display=swap")
 
 BASE_CSS = ["base/tokens.css", "base/reset.css", "base/typography.css",
             "layout/layout.css", "layout/header.css", "layout/footer.css",
@@ -88,7 +88,7 @@ NAV_SERVICES = [
     ("custom-website-development/", "Custom HTML websites", "Fast, hand-coded, no platform fees"),
     ("wordpress-website-development/", "WordPress websites", "Easy to edit, great for content"),
     ("shopify-website-development/", "Shopify stores", "Sell online with payments and COD"),
-    ("ecommerce-website-development/", "Ecommerce websites", "Online stores on Shopify or WooCommerce"),
+    ("ecommerce-website-development/", "Ecommerce websites", "Online stores on Shopify"),
     ("landing-page-design/", "Landing pages", "One page built to convert ad traffic"),
     ("website-maintenance/", "Website maintenance", "Updates, backups and fixes every month"),
 ]
@@ -228,7 +228,7 @@ def footer(path, js):
     </div>
     <div class="footer-wordmark" aria-hidden="true">{BRAND}</div>
     <div class="footer-bottom">
-      <p>&copy; <span data-year></span> {BRAND}. Designed and built by {OWNER}.</p>
+      <p>&copy; <span data-year></span> {BRAND}. All rights reserved.</p>
       <ul><li><a href="{p}privacy-policy/">Privacy</a></li><li><a href="{p}terms/">Terms</a></li><li><a href="{p}contact/">Contact</a></li></ul>
     </div>
   </div>
@@ -259,11 +259,10 @@ def breadcrumb(path, trail):
 def business_schema():
     s = {"@context": "https://schema.org", "@type": "ProfessionalService", "@id": f"{DOMAIN}/#business",
          "name": BRAND, "url": f"{DOMAIN}/", "email": EMAIL, "telephone": PHONE_DISPLAY, "priceRange": "₹₹",
-         "founder": {"@type": "Person", "name": OWNER, "jobTitle": "Web designer and developer"},
          "address": {"@type": "PostalAddress", "addressRegion": "Tamil Nadu", "addressCountry": "IN"},
          "areaServed": [{"@type": "City", "name": "Coimbatore", "alternateName": ["Kovai", "CBE"]},
                         {"@type": "City", "name": "Tiruppur", "alternateName": ["Tirupur"]}],
-         "knowsAbout": ["Web design", "Shopify", "WordPress", "WooCommerce", "HTML", "SEO"],
+         "knowsAbout": ["Web design", "Shopify", "WordPress", "HTML", "SEO"],
          "sameAs": [u for u in [INSTAGRAM, GBP_URL] if u]}
     return s
 

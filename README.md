@@ -70,4 +70,4 @@ Easiest way to edit: change the Python files in `_dev/`, then run `python _dev/b
 
 ## Next pages to add (from the SEO plan)
 
-Business websites, WooCommerce, Shopify theme customization, website redesign, migration and speed optimization service pages; Erode, Chennai and Bengaluru city pages; and the blog posts listed on the blog page. Add new services to `SERVICES` in `_dev/content_services.py` and they get the full page template automatically.
+Business websites, Shopify theme customization, website redesign, migration and speed optimization service pages; Erode, Chennai and Bengaluru city pages; and the blog posts listed on the blog page. Add new services to `SERVICES` in `_dev/content_services.py` and they get the full page template automatically.

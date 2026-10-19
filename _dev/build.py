@@ -2,9 +2,9 @@
 Every page is written to <slug>/index.html so URLs stay clean (/website-designer-coimbatore/)."""
 from pathlib import Path
 from html import escape
-from layout import (BRAND, DOMAIN, OWNER, EMAIL, WHATSAPP, PHONE_DISPLAY, ICON, why_icon, wa_link, rel, page, breadcrumb,
+from layout import (BRAND, DOMAIN, EMAIL, WHATSAPP, PHONE_DISPLAY, ICON, logo_mark, why_icon, wa_link, rel, page, breadcrumb,
                     business_schema, faq_schema, service_schema, faq_block, process_block, cta_block)
-from content_services import SERVICES, PRICE
+from content_services import SERVICES, PRICE, PRICE_LANDING, PRICE_STATIC, PRICE_SHOPIFY_BASIC, PRICE_SHOPIFY_ADVANCED
 
 ROOT = Path(__file__).resolve().parent.parent
 BUILT = []
@@ -18,6 +18,11 @@ JS_BUNDLE = [
     "main.js", "reveal.js", "weave.js", "process.js", "faq.js",
     "contact.js", "pricing.js", "work-filter.js",
 ]
+
+# Official brand marks (Simple Icons, CC0) for the platform cards on Home.
+LOGO_HTML5 = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z"/></svg>'
+LOGO_WORDPRESS = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.469 6.825c.84 1.537 1.318 3.3 1.318 5.175 0 3.979-2.156 7.456-5.363 9.325l3.295-9.527c.615-1.54.82-2.771.82-3.864 0-.405-.026-.78-.07-1.11m-7.981.105c.647-.03 1.232-.105 1.232-.105.582-.075.514-.93-.067-.899 0 0-1.755.135-2.88.135-1.064 0-2.85-.15-2.85-.15-.585-.03-.661.855-.075.885 0 0 .54.061 1.125.09l1.68 4.605-2.37 7.08L5.354 6.9c.649-.03 1.234-.1 1.234-.1.585-.075.516-.93-.065-.896 0 0-1.746.138-2.874.138-.2 0-.438-.008-.69-.015C4.911 3.15 8.235 1.215 12 1.215c2.809 0 5.365 1.072 7.286 2.833-.046-.003-.091-.009-.141-.009-1.06 0-1.812.923-1.812 1.914 0 .89.513 1.643 1.06 2.531.411.72.89 1.643.89 2.977 0 .915-.354 1.994-.821 3.479l-1.075 3.585-3.9-11.61.001.014zM12 22.784c-1.059 0-2.081-.153-3.048-.437l3.237-9.406 3.315 9.087c.024.053.05.101.078.149-1.12.393-2.325.609-3.582.609M1.211 12c0-1.564.336-3.05.935-4.39L7.29 21.709C3.694 19.96 1.212 16.271 1.211 12M12 0C5.385 0 0 5.385 0 12s5.385 12 12 12 12-5.385 12-12S18.615 0 12 0"/></svg>'
+LOGO_SHOPIFY = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.337 23.979l7.216-1.561s-2.604-17.613-2.625-17.73c-.018-.116-.114-.192-.211-.192s-1.929-.136-1.929-.136-1.275-1.274-1.439-1.411c-.045-.037-.075-.057-.121-.074l-.914 21.104h.023zM11.71 11.305s-.81-.424-1.774-.424c-1.447 0-1.504.906-1.504 1.141 0 1.232 3.24 1.715 3.24 4.629 0 2.295-1.44 3.76-3.406 3.76-2.354 0-3.54-1.465-3.54-1.465l.646-2.086s1.245 1.066 2.28 1.066c.675 0 .975-.545.975-.932 0-1.619-2.654-1.694-2.654-4.359-.034-2.237 1.571-4.416 4.827-4.416 1.257 0 1.875.361 1.875.361l-.945 2.715-.02.01zM11.17.83c.136 0 .271.038.405.135-.984.465-2.064 1.639-2.508 3.992-.656.213-1.293.405-1.889.578C7.697 3.75 8.951.84 11.17.84V.83zm1.235 2.949v.135c-.754.232-1.583.484-2.394.736.466-1.777 1.333-2.645 2.085-2.971.193.501.309 1.176.309 2.1zm.539-2.234c.694.074 1.141.867 1.429 1.755-.349.114-.735.231-1.158.366v-.252c0-.752-.096-1.371-.271-1.871v.002zm2.992 1.289c-.02 0-.06.021-.078.021s-.289.075-.714.21c-.423-1.233-1.176-2.37-2.508-2.37h-.115C12.135.209 11.669 0 11.265 0 8.159 0 6.675 3.877 6.21 5.846c-1.194.365-2.063.636-2.16.674-.675.213-.694.232-.772.87-.075.462-1.83 14.063-1.83 14.063L15.009 24l.927-21.166z"/></svg>'
 
 
 def bundle_assets():
@@ -52,8 +57,9 @@ def tiers_html(packages, colors=("#2448B8", "#2F5BE0", "#8FA8F0"), flag_middle=T
         flag = '<span class="tier__flag">Most popular</span>' if flag_middle and len(packages) == 3 and i == 1 else ""
         lis = "".join(f"<li>{escape(x)}</li>" for x in items)
         price_html = escape(price).replace(" / month", " <small>/ month</small>")
+        price_label = price_html if not price.startswith("₹") else f"From {price_html}"
         out.append(f'<div class="tier" style="--c:{colors[i % 3]};--d:{i*0.1}s" data-reveal>{flag}<h3>{escape(name)}</h3>'
-                   f'<p class="tier__price">From {price_html}</p><ul>{lis}</ul></div>')
+                   f'<p class="tier__price">{price_label}</p><ul>{lis}</ul></div>')
     return '<div class="tiers">' + "".join(out) + "</div>"
 
 
@@ -64,9 +70,6 @@ WORK = [
     dict(name="Herbie", platform="website", tags=["Website", "Copywriting", "D2C"],
          line="Flavoured nuts with a personality", fg="#1C1D22", fabric="radial-gradient(circle at 20% 30%,#FFFFFF 0 10%,transparent 11%) 0 0/60px 60px,#EDEAE4",
          text="A brand website and product copy for a flavoured cashew and badam brand, written to make each flavour feel worth trying."),
-    dict(name="Bright Digi World", platform="shopify", tags=["Shopify", "B2B equipment"],
-         line="Office automation, made easy to order", fabric="repeating-linear-gradient(90deg,#2F5BE0 0 22px,#2A53D4 22px 44px)",
-         text="A Shopify store for office automation and cleaning equipment, organised so business buyers can find the right machine quickly."),
 ]
 
 
@@ -89,7 +92,7 @@ def work_rows(path, limit=None, with_filter_attr=False):
 # HOME
 # ===========================================================================
 HOME_FAQS = [
-    ("How much does a website cost?", f"A simple business website starts from {PRICE} and a Shopify store from {PRICE}. The price depends on pages or products, design and features. You get a fixed quote before any work begins."),
+    ("How much does a website cost?", f"A simple business website starts from {PRICE_LANDING} and a Shopify store from {PRICE_SHOPIFY_BASIC}. The price depends on pages or products, design and features. You get a fixed quote before any work begins."),
     ("How long does it take?", "Most business websites take 1 to 3 weeks and online stores 2 to 4 weeks, depending on content and the number of products."),
     ("Which platform should I choose?", "Shopify if you sell online every day, WordPress if you publish often, and a custom HTML site if you want something fast and low-maintenance. I'll recommend one honestly."),
     ("Can I update the website myself?", "Yes. Shopify and WordPress sites come with a short training video made for your site, so you can change products, prices and offers yourself."),
@@ -117,7 +120,7 @@ def build_home():
     body = f"""
 <section class="hero" aria-labelledby="hero-title">
   <div class="container hero__grid">
-    <div>
+    <div class="hero__content">
       <h1 id="hero-title" data-split>Website designer for <span class="accent">Coimbatore and Tiruppur</span> brands</h1>
       <p class="lead hero__fade" style="--d:.9s">I design and build Shopify stores, WordPress sites and hand-coded websites for boutiques, clothing brands and local businesses. Fast on mobile, easy to update, and set up to be found on Google.</p>
       <div class="btn-row hero__fade" style="--d:1.1s">
@@ -145,18 +148,18 @@ def build_home():
     <div class="section-head" data-reveal><h2 id="platforms-title">A website that works <span class="accent">your way.</span></h2>
       <p class="lead">Three ways to get online, each suited to a different kind of business. Not sure which fits? I'll tell you honestly.</p></div>
     <div class="platforms">
-      <div class="platform" style="--c:#2448B8" data-reveal><span class="platform__swatch" style="--sw:repeating-linear-gradient(90deg,#2448B8 0 8px,#5B7FE8 8px 16px)" aria-hidden="true"></span>
+      <div class="platform" style="--c:#2448B8" data-reveal><span class="platform__swatch" aria-hidden="true">{LOGO_HTML5}</span>
         <h3>Custom HTML</h3><p class="platform__best">For a fast, low-cost profile or landing page.</p>
         <ul><li>Loads in under 2 seconds</li><li>No monthly platform fee</li><li>Nothing to update or hack</li></ul>
-        <p class="platform__price">From {PRICE}</p><a class="text-link" href="{p}custom-website-development/">Custom HTML websites</a></div>
-      <div class="platform" style="--c:#8FA8F0;--d:.1s" data-reveal><span class="platform__swatch" style="--sw:repeating-linear-gradient(45deg,#8FA8F0 0 8px,#C3D1F7 8px 16px)" aria-hidden="true"></span>
+        <p class="platform__price">From {PRICE_LANDING}</p><a class="text-link" href="{p}custom-website-development/">Custom HTML websites</a></div>
+      <div class="platform" style="--c:#8FA8F0;--d:.1s" data-reveal><span class="platform__swatch" aria-hidden="true">{LOGO_WORDPRESS}</span>
         <h3>WordPress</h3><p class="platform__best">For businesses that publish and update often.</p>
-        <ul><li>Edit pages and posts yourself</li><li>Strong for blogs and Google traffic</li><li>Add a WooCommerce store later</li></ul>
-        <p class="platform__price">From {PRICE}</p><a class="text-link" href="{p}wordpress-website-development/">WordPress websites</a></div>
-      <div class="platform" style="--c:#2F5BE0;--d:.2s" data-reveal><span class="platform__swatch" style="--sw:radial-gradient(circle at 30% 30%,#DCE4FB 0 22%,transparent 23%) 0 0/16px 16px,#2F5BE0" aria-hidden="true"></span>
+        <ul><li>Strong for blogs and Google traffic</li><li>Secure, fast and backed up</li></ul>
+        <p class="platform__price">From {PRICE_SHOPIFY_BASIC}</p><a class="text-link" href="{p}wordpress-website-development/">WordPress websites</a></div>
+      <div class="platform" style="--c:#2F5BE0;--d:.2s" data-reveal><span class="platform__swatch" aria-hidden="true">{LOGO_SHOPIFY}</span>
         <h3>Shopify</h3><p class="platform__best">For brands that sell online every day.</p>
         <ul><li>Payments, UPI and cash on delivery</li><li>Run your store from your phone</li><li>Shipping and GST built in</li></ul>
-        <p class="platform__price">From {PRICE}</p><a class="text-link" href="{p}shopify-website-development/">Shopify stores</a></div>
+        <p class="platform__price">From {PRICE_SHOPIFY_BASIC}</p><a class="text-link" href="{p}shopify-website-development/">Shopify stores</a></div>
     </div>
   </div>
 </section>
@@ -171,7 +174,7 @@ def build_home():
 <section class="band" aria-labelledby="work-title">
   <div class="container">
     <div class="section-head" data-reveal><h2 id="work-title">Made with <span class="accent">intention.</span></h2>
-      <p class="lead">Stores and websites for Tamil Nadu brands in food, sweets, nuts and equipment.</p></div>
+      <p class="lead">Stores and websites for Tamil Nadu brands in food, sweets and nuts.</p></div>
     {work_rows(path)}
   </div>
 </section>
@@ -203,9 +206,9 @@ def build_home():
   <div class="container">
     <div class="section-head" data-reveal><h2 id="pricing-title">Simple, <span class="accent">fixed</span> prices</h2>
       <p class="lead">Agree the price before work starts. No hidden monthly charges from me.</p></div>
-    {tiers_html([("Starter", PRICE, ["Business website, up to 5 pages", "WhatsApp, form and map", "Basic SEO setup"]),
+    {tiers_html([("Starter", PRICE_STATIC, ["Business website, up to 5 pages", "WhatsApp, form and map", "Basic SEO setup"]),
                  ("Business", PRICE, ["Custom design, up to 10 pages", "Full SEO and schema", "Training video"]),
-                 ("Online store", PRICE, ["Shopify or WooCommerce", "Payments, COD and shipping", "Up to 100 products"])])}
+                 ("Online store", PRICE_SHOPIFY_BASIC, ["Shopify store, built around your products", "Payments, COD and shipping", "Up to 40 products"])])}
     <p style="margin-top:2.5rem"><a class="text-link" href="{p}pricing/">See full pricing</a></p>
   </div>
 </section>
@@ -246,7 +249,7 @@ def build_services_hub():
 <section class="band band--mist" aria-labelledby="choose-title"><div class="container">
   <div class="section-head" data-reveal><h2 id="choose-title">How to choose</h2></div>
   <div class="fit">
-    <div class="fit__item" style="--c:#2F5BE0" data-reveal><h3>You want to sell online</h3><p>Choose a Shopify store, or WooCommerce if you already use WordPress.</p></div>
+    <div class="fit__item" style="--c:#2F5BE0" data-reveal><h3>You want to sell online</h3><p>Choose a Shopify store, built around what you sell.</p></div>
     <div class="fit__item" style="--c:#8FA8F0;--d:.1s" data-reveal><h3>You update content often</h3><p>Choose WordPress, so you can add pages, posts and offers yourself.</p></div>
     <div class="fit__item" style="--c:#2448B8;--d:.2s" data-reveal><h3>You want fast and simple</h3><p>Choose a custom HTML site with no platform fees or plugins.</p></div>
   </div></div></section>
@@ -336,11 +339,11 @@ CITIES = [
                "Razorpay, UPI and cash on delivery, with Shiprocket or Delhivery", "New-arrival and sale banners you can change yourself in minutes"],
         niche_link=("website-for-boutiques/", "Website design for boutiques"),
         table=None,
-        prices=[("Business website (custom HTML or WordPress)", PRICE), ("Boutique or brand Shopify store", PRICE), ("Store with custom design, many products or integrations", PRICE)],
+        prices=[("Business website (custom HTML or WordPress)", PRICE_LANDING), ("Boutique or brand Shopify store", PRICE_SHOPIFY_BASIC), ("Store with custom design, many products or integrations", PRICE_SHOPIFY_ADVANCED)],
         timeline="Most boutique stores go live in 3 to 4 weeks. I work with Coimbatore clients mainly over WhatsApp and video calls; an in-person meeting can be arranged when it helps.",
         areas=["RS Puram", "Gandhipuram", "Peelamedu", "Saibaba Colony", "Race Course", "Avinashi Road", "Saravanampatti", "Singanallur", "Ramanathapuram", "Vadavalli"],
         other=("website-designer-tiruppur/", "Tiruppur"),
-        faqs=[("How much does a website cost in Coimbatore?", f"A simple business website usually starts from {PRICE}, and a Shopify store for a boutique from {PRICE}. Price depends on pages or products, design and features. You get a fixed quote before any work begins, with no hidden monthly charges from me."),
+        faqs=[("How much does a website cost in Coimbatore?", f"A simple business website usually starts from {PRICE_LANDING}, and a Shopify store for a boutique from {PRICE_SHOPIFY_BASIC}. Price depends on pages or products, design and features. You get a fixed quote before any work begins, with no hidden monthly charges from me."),
               ("How long does it take to build a boutique website?", "Most boutique Shopify stores take 3 to 4 weeks from the first call to launch. Adding 100 or more products, custom features or waiting on photos can add time. You'll get a clear timeline in your quote."),
               ("Can I update products and prices myself?", "Yes. Shopify and WordPress both let you add products, change prices and post offers from your phone. I record a short training video for your site so you can manage everyday changes without paying anyone."),
               ("Will my website show up on Google?", "Every site is built with SEO basics: fast loading, proper titles and descriptions, schema and a Google Search Console setup. Ranking for competitive searches takes time and content, but your business name and local searches usually appear within weeks."),
@@ -371,12 +374,11 @@ CITIES = [
         niche2=["Product categories in the order buyers check them: fabric, GSM, product type, MOQ", "Factory capacity, machinery and process photos",
                 "Certifications you hold, shown clearly and kept up to date", "A short enquiry form plus WhatsApp and email, so buyers reach you in their time zone",
                 "Fast loading even on slow overseas connections, with an English-first layout"],
-        prices=[("Catalogue website for a manufacturer or exporter", PRICE), ("Shopify store for a clothing brand", PRICE), ("Large store or custom features (B2B pricing, wholesale login)", PRICE)],
+        prices=[("Catalogue website for a manufacturer or exporter", PRICE_STATIC), ("Shopify store for a clothing brand", PRICE_SHOPIFY_BASIC), ("Large store or custom features (B2B pricing, wholesale login)", PRICE_SHOPIFY_ADVANCED)],
         timeline="Most catalogue sites go live in 2 to 3 weeks and brand stores in 3 to 5 weeks. Work happens over WhatsApp and video calls; an in-person visit to Tiruppur can be arranged when it helps.",
         areas=["Khaderpet", "PN Road", "Mangalam Road", "Avinashi Road", "Palladam Road", "Kangeyam Road", "Anupparpalayam", "Velampalayam", "Export Knitwear Industrial Complex"],
         other=("website-designer-coimbatore/", "Coimbatore"),
-        faqs=[("How much does a website cost in Tiruppur?", f"A catalogue website for a manufacturer usually starts from {PRICE}, and a Shopify store for a clothing brand from {PRICE}. The price depends on products, features and design. You get a fixed quote before any work begins, with no surprise charges from me."),
-              ("Should my garment brand use Shopify or WooCommerce?", "For most new Tirupur brands, Shopify is simpler: hosting, security and checkout are handled for you, and you can run it from your phone. WooCommerce suits businesses that already use WordPress or need deep customisation without monthly app fees."),
+        faqs=[("How much does a website cost in Tiruppur?", f"A catalogue website for a manufacturer usually starts from {PRICE_STATIC}, and a Shopify store for a clothing brand from {PRICE_SHOPIFY_BASIC}. The price depends on products, features and design. You get a fixed quote before any work begins, with no surprise charges from me."),
               ("Can my website handle sizes, colours and combo packs?", "Yes. Every product can have size, colour and pack options with separate prices and stock. Combo offers, bulk discounts and buy-more-save-more pricing can be set up for families and resellers."),
               ("Do exporters really need a website if buyers come through agents?", "Yes. Buyers and agents check you online before placing orders. A clear catalogue site with capacity, products and certifications builds trust faster than PDFs and helps new buyers find you directly on Google."),
               ("How long does it take to build?", "Catalogue sites usually take 2 to 3 weeks and Shopify stores 3 to 5 weeks, depending on how many products you have and how quickly photos and details are ready. Your quote includes a clear timeline."),
@@ -435,7 +437,7 @@ def build_city(c):
   <div class="section-head" data-reveal><h2 id="plat-title">Shopify, WordPress or a custom website?</h2></div>
   <div class="fit">
     <div class="fit__item" style="--c:#2F5BE0" data-reveal><h3>Shopify</h3><p>For boutiques and brands that sell online every day. Products, payments, stock and orders in one dashboard.</p><a class="text-link" href="{p}shopify-website-development/">Shopify stores</a></div>
-    <div class="fit__item" style="--c:#8FA8F0" data-reveal><h3>WordPress</h3><p>For businesses that publish often or want a blog that brings Google traffic. WooCommerce adds a store when you need it.</p><a class="text-link" href="{p}wordpress-website-development/">WordPress websites</a></div>
+    <div class="fit__item" style="--c:#8FA8F0" data-reveal><h3>WordPress</h3><p>For businesses that publish often or want a blog that brings Google traffic.</p><a class="text-link" href="{p}wordpress-website-development/">WordPress websites</a></div>
     <div class="fit__item" style="--c:#2448B8" data-reveal><h3>Custom HTML</h3><p>For a fast, low-maintenance business profile or a landing page for ads, with no monthly platform fee.</p><a class="text-link" href="{p}custom-website-development/">Custom HTML websites</a></div>
   </div></div></section>
 
@@ -471,15 +473,15 @@ def build_city(c):
 # PRICING
 # ===========================================================================
 PRICING = {
-    "html": ("Custom HTML", [("HTML Starter", PRICE, ["Up to 3 pages", "WhatsApp and contact form", "Basic SEO setup", "1 to 2 weeks"]),
-                             ("HTML Business", PRICE, ["Up to 6 pages", "Custom design and animation", "Full SEO and schema", "2 to 3 weeks"]),
-                             ("Landing Page", PRICE, ["One page for ads", "Tracking setup", "About 1 week"])]),
-    "wordpress": ("WordPress", [("WordPress Starter", PRICE, ["Up to 5 pages", "Lean theme setup", "SEO plugin configured", "About 2 weeks"]),
-                                ("WordPress Business", PRICE, ["Up to 10 pages plus blog", "Custom design", "Speed and security setup", "About 3 weeks"]),
-                                ("WooCommerce Store", PRICE, ["Up to 50 products", "Payments, UPI and COD", "Shipping and GST", "About 4 weeks"])]),
-    "shopify": ("Shopify", [("Starter Store", PRICE, ["Up to 20 products", "Theme setup and branding", "Payments, COD and shipping", "About 2 weeks"]),
-                            ("Growth Store", PRICE, ["Up to 100 products", "Custom homepage and sections", "SEO and speed setup", "About 3 weeks"]),
-                            ("Premium Store", PRICE, ["Unlimited products", "Custom-coded sections", "Advanced apps and automations", "4 to 5 weeks"])]),
+    "html": ("Custom HTML", [("HTML Starter", PRICE_LANDING, ["Up to 3 pages", "WhatsApp and contact form", "Basic SEO setup", "1 to 2 weeks"]),
+                             ("HTML Business", PRICE_STATIC, ["Up to 5 pages", "Custom design and animation", "Full SEO and schema", "2 to 3 weeks"]),
+                             ("Landing Page", PRICE_LANDING, ["Hero, about and contact sections", "One page", "About 1 week"])]),
+    "wordpress": ("WordPress", [("WordPress Starter", PRICE_SHOPIFY_BASIC, ["Up to 5 pages", "Lean theme setup", "SEO plugin configured", "About 2 weeks"]),
+                                ("WordPress Business", PRICE_SHOPIFY_ADVANCED, ["Up to 10 pages plus blog", "Custom design", "Speed and security setup", "About 3 weeks"]),
+                                ("Custom", "Custom pricing", ["Scope built around your requirements", "Reviewed on a free call or meeting", "Fixed quote once we've talked"])]),
+    "shopify": ("Shopify", [("Starter Store", PRICE_SHOPIFY_BASIC, ["Up to 40 products", "Basic theme", "Payments and shipping", "About 2 weeks"]),
+                            ("Premium Store", PRICE_SHOPIFY_ADVANCED, ["Up to 40 products, plus ₹50 per extra product", "Premium customised theme", "Payments and shipping", "4 to 5 weeks"]),
+                            ("Custom", "Custom pricing", ["Scope built around your requirements", "Reviewed on a free call or meeting", "Fixed quote once we've talked"])]),
 }
 PRICING_FAQS = [
     ("Are domain and hosting included?", "Domain and hosting are paid by you, in your name, so you always own them. I set everything up and tell you exactly what to buy."),
@@ -495,8 +497,8 @@ def build_pricing():
     crumb, crumb_ld = breadcrumb(path, [("Pricing", None)])
     tabs = "".join(f'<button role="tab" id="tab-{k}" aria-controls="panel-{k}" data-slug="{k}" aria-selected="false" tabindex="-1">{v[0]}</button>' for k, v in PRICING.items())
     panels = "".join(f'<div class="tab-panel" role="tabpanel" id="panel-{k}" aria-labelledby="tab-{k}" tabindex="0" hidden>{tiers_html(v[1])}</div>' for k, v in PRICING.items())
-    addons = [("Extra page", PRICE), ("Product upload (per 25 products)", PRICE), ("Copywriting per page", PRICE), ("Logo and brand colours", PRICE),
-              ("Google Business Profile setup", PRICE), ("SEO starter pack", PRICE), ("Care plan", PRICE + " / month"), ("Growth care plan", PRICE + " / month")]
+    addons = [("Extra page", "Based on requirement"), ("Product upload (per product)", "₹25 – ₹50, based on product detailing"), ("Copywriting per page", "₹500 – ₹1,000"), ("Logo and brand colours", "From ₹4,000"),
+              ("SEO starter pack", "₹4,000"), ("Care plan", "₹2,999 / month"), ("Growth care plan", "₹4,999 / month")]
     addons_html = "".join(f"<li><span>{a}</span><span>{b}</span></li>" for a, b in addons)
     body = f"""
 <section class="page-hero"><div class="container">{crumb}
@@ -544,7 +546,7 @@ def build_work():
 {cta_block(path, "Want a site like these?")}
 """
     write(path, page(path, "Website Design Portfolio | Projects by PixelLoom",
-                     "Shopify stores and websites built for Tamil Nadu brands in food, sweets, nuts and equipment. See recent web design work.",
+                     "Shopify stores and websites built for Tamil Nadu brands in food, sweets and nuts. See recent web design work.",
                      body, ["pages/home.css", "pages/service.css", "pages/work.css"], ["work-filter.js"], [crumb_ld]))
 
 
@@ -552,17 +554,15 @@ def build_about():
     path = "about/"
     p = rel(path)
     crumb, crumb_ld = breadcrumb(path, [("About", None)])
-    skills = ["HTML", "CSS", "JavaScript", "WordPress", "Elementor", "WooCommerce", "Shopify", "Shopify Liquid", "Figma", "SEO", "Copywriting", "Google Analytics"]
-    person = {"@context": "https://schema.org", "@type": "Person", "name": OWNER, "jobTitle": "Web designer and developer",
-              "worksFor": {"@id": f"{DOMAIN}/#business"}, "knowsAbout": skills, "url": f"{DOMAIN}/about/"}
+    skills = ["HTML", "CSS", "JavaScript", "WordPress", "Elementor", "Shopify", "Shopify Liquid", "Figma", "SEO", "Copywriting", "Google Analytics"]
     body = f"""
 <section class="page-hero"><div class="container">{crumb}
   <div class="page-hero__grid" style="align-items:center"><div>
-    <h1 data-split>Hi, I'm {OWNER}. I design and build websites.</h1>
+    <h1 data-split>Hi, I'm the designer and developer behind {BRAND}.</h1>
     <p class="lead hero__fade" style="--d:.8s">I work with boutiques, clothing brands and local businesses who want a website that looks like them and actually brings in customers. I also write the words, so your site says the right things as well as looking good.</p>
     <div class="btn-row hero__fade" style="--d:1s"><a class="btn" href="{p}contact/">Work with me</a><a class="btn btn--ghost" href="{p}work/">See my work</a></div>
   </div>
-  <div class="portrait" role="img" aria-label="Portrait of {OWNER}">{OWNER[0]}</div></div>
+  <div class="portrait" role="img" aria-label="{BRAND} logo">{logo_mark(light=True)}</div></div>
 </div></section>
 <section class="band band--mist" aria-labelledby="story-title"><div class="container split">
   <div class="section-head" data-reveal><h2 id="story-title">How I work</h2></div>
@@ -586,9 +586,9 @@ def build_about():
 </div></section>
 {cta_block(path)}
 """
-    write(path, page(path, f"About {OWNER} | Web Designer & Developer for Coimbatore & Tiruppur",
-                     f"Meet {OWNER}, a web designer and developer building Shopify, WordPress and custom websites for boutiques, clothing brands and local businesses.",
-                     body, ["pages/home.css", "pages/service.css", "pages/about.css"], [], [crumb_ld, person]))
+    write(path, page(path, f"About {BRAND} | Web Designer & Developer for Coimbatore & Tiruppur",
+                     f"{BRAND} designs and builds Shopify, WordPress and custom websites for boutiques, clothing brands and local businesses.",
+                     body, ["pages/home.css", "pages/service.css", "pages/about.css"], [], [crumb_ld, business_schema()]))
 
 
 def build_contact():

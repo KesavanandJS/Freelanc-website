@@ -14,10 +14,11 @@
   --on-dark: #F6F5F1;
   --on-dark-soft: #B9B8B2;
 
-  /* Type: grotesque headings, clean sans body, monospace labels */
+  /* Type: grotesque headings, clean sans body, monospace labels, cursive accent */
   --font-display: "Familjen Grotesk", "Segoe UI", system-ui, sans-serif;
   --font-body: "Hanken Grotesk", "Segoe UI", system-ui, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --font-accent: "Caveat", cursive;
   --step--1: 0.875rem;
   --step-0: 1.0625rem;
   --step-1: 1.2rem;

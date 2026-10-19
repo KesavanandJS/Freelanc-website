@@ -14,7 +14,7 @@ p { max-width: 64ch; text-wrap: pretty; }
 .prose a, .link { color: var(--accent-deep); text-decoration-thickness: 1.5px; text-underline-offset: 3px; }
 .prose a:hover, .link:hover { color: var(--accent); }
 ::selection { background: var(--accent-soft); color: var(--ink); }
-.accent { color: var(--accent); }
+.accent { color: var(--accent); font-family: var(--font-accent); font-weight: 700; letter-spacing: 0; font-size: 1.05em; line-height: 1.4; overflow: visible; }
 .band--ink .accent, .hero .accent, .cta-band .accent { color: #6F8FF0; }
 .mono, .tag, .breadcrumb, .hero__note, .tier__flag, .posts__soon { font-family: var(--font-mono); letter-spacing: 0; }
 :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
