@@ -1,6 +1,8 @@
 """Shared building blocks: site settings, icons, <head>, header, footer, page shell."""
 import json
+import re
 from html import escape
+from pathlib import Path
 
 # ---------------------------------------------------------------------------
 # Site settings: change these once and rebuild (python _dev/build.py)
@@ -22,6 +24,36 @@ BASE_CSS = ["base/tokens.css", "base/reset.css", "base/typography.css",
             "layout/layout.css", "layout/header.css", "layout/footer.css",
             "components/buttons.css", "components/animations.css", "components/cta.css"]
 BASE_JS = ["main.js", "reveal.js"]
+
+# ---------------------------------------------------------------------------
+# CSS is inlined (not linked) so first paint never waits on a second request.
+# On a high-latency mobile connection, one extra round trip for an external
+# stylesheet costs more than the CSS itself does, so every file is combined
+# and minified once at import time and dropped straight into <head> as
+# <style>. Source files stay split under assets/css/ for editing.
+# ---------------------------------------------------------------------------
+CSS_BUNDLE = [
+    "base/tokens.css", "base/reset.css", "base/typography.css",
+    "layout/layout.css", "layout/header.css", "layout/footer.css",
+    "components/buttons.css", "components/animations.css", "components/cta.css",
+    "components/weave.css", "components/marquee.css", "components/service-list.css",
+    "components/process.css", "components/faq.css", "components/forms.css",
+    "pages/home.css", "pages/service.css", "pages/pricing.css", "pages/city.css",
+    "pages/work.css", "pages/about.css", "pages/contact.css", "pages/blog.css",
+    "pages/legal.css",
+]
+_ASSETS_CSS = Path(__file__).resolve().parent.parent / "assets" / "css"
+
+
+def _minify_css(text):
+    text = re.sub(r"/\*.*?\*/", "", text, flags=re.S)
+    text = re.sub(r"\s+", " ", text)
+    text = re.sub(r"\s*([{}:;,])\s*", r"\1", text)
+    text = re.sub(r";}", "}", text)
+    return text.strip()
+
+
+INLINE_CSS = "".join(_minify_css((_ASSETS_CSS / f).read_text(encoding="utf-8")) for f in CSS_BUNDLE)
 
 # ---------------------------------------------------------------------------
 # Icons (inline SVG, inherit currentColor where possible)
@@ -79,9 +111,9 @@ def rel(path):
 def head(path, title, desc, css, schema=None, noindex=False):
     p = rel(path)
     url = f"{DOMAIN}/{path}"
-    # All page CSS is bundled into one file at build time (see bundle_assets() in
-    # build.py) so a page needs a single stylesheet request instead of a dozen.
-    links = f'  <link rel="stylesheet" href="{p}assets/css/app.min.css">'
+    # CSS is inlined (INLINE_CSS, built once at import time) rather than linked,
+    # so first paint never waits on a second network round trip.
+    links = f"  <style>{INLINE_CSS}</style>"
     ld = ""
     if schema:
         ld = "\n".join(f'  <script type="application/ld+json">{json.dumps(s, ensure_ascii=False)}</script>' for s in schema)

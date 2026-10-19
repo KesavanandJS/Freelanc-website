@@ -1,6 +1,5 @@
 """Builds the static site. Run from anywhere:  python _dev/build.py
 Every page is written to <slug>/index.html so URLs stay clean (/website-designer-coimbatore/)."""
-import re
 from pathlib import Path
 from html import escape
 from layout import (BRAND, DOMAIN, OWNER, EMAIL, WHATSAPP, PHONE_DISPLAY, ICON, why_icon, wa_link, rel, page, breadcrumb,
@@ -10,40 +9,18 @@ from content_services import SERVICES, PRICE
 ROOT = Path(__file__).resolve().parent.parent
 BUILT = []
 
-# Every individual CSS/JS file under assets/, in a safe load order (base
-# tokens and reset first; main.js/reveal.js before the rest). Source files
-# stay split for editing; bundle_assets() concatenates them into the single
-# app.min.css / app.min.js that every page links to, so a page pays for one
-# stylesheet request and one script request instead of a dozen+ each.
-CSS_BUNDLE = [
-    "base/tokens.css", "base/reset.css", "base/typography.css",
-    "layout/layout.css", "layout/header.css", "layout/footer.css",
-    "components/buttons.css", "components/animations.css", "components/cta.css",
-    "components/weave.css", "components/marquee.css", "components/service-list.css",
-    "components/process.css", "components/faq.css", "components/forms.css",
-    "pages/home.css", "pages/service.css", "pages/pricing.css", "pages/city.css",
-    "pages/work.css", "pages/about.css", "pages/contact.css", "pages/blog.css",
-    "pages/legal.css",
-]
+# Deferred scripts are bundled into one file at build time (CSS is inlined
+# straight into <head> instead, see layout.py's INLINE_CSS). Each script is
+# a self-checking IIFE that no-ops when its target element isn't on the
+# page, so one bundle is safe to include everywhere and saves a request per
+# script on every page. Source files stay split under assets/js/ for editing.
 JS_BUNDLE = [
     "main.js", "reveal.js", "weave.js", "process.js", "faq.js",
     "contact.js", "pricing.js", "work-filter.js",
 ]
 
 
-def _minify_css(text):
-    text = re.sub(r"/\*.*?\*/", "", text, flags=re.S)
-    text = re.sub(r"\s+", " ", text)
-    text = re.sub(r"\s*([{}:;,])\s*", r"\1", text)
-    text = re.sub(r";}", "}", text)
-    return text.strip()
-
-
 def bundle_assets():
-    css_dir = ROOT / "assets/css"
-    bundled_css = "\n".join(_minify_css((css_dir / f).read_text(encoding="utf-8")) for f in CSS_BUNDLE)
-    (css_dir / "app.min.css").write_text(bundled_css + "\n", encoding="utf-8")
-
     js_dir = ROOT / "assets/js"
     bundled_js = "\n".join((js_dir / f).read_text(encoding="utf-8").strip() for f in JS_BUNDLE)
     (js_dir / "app.min.js").write_text(bundled_js + "\n", encoding="utf-8")
