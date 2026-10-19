@@ -1,0 +1,7 @@
+/* Contact page */
+.contact-ways { display: grid; gap: 0; border-top: 1px solid var(--line); }
+.contact-way { display: grid; grid-template-columns: 52px 1fr; gap: 1rem; align-items: center; padding: 1.4rem 0; border-bottom: 1px solid var(--line); text-decoration: none; transition: padding .4s var(--ease); }
+.contact-way:hover { padding-left: .8rem; }
+.contact-way svg { width: 44px; height: 44px; }
+.contact-way strong { display: block; font-family: var(--font-display); font-size: 1.3rem; }
+.contact-way span { color: var(--ink-soft); }

@@ -1,0 +1,12 @@
+/* Pricing page */
+.tabs { display: inline-flex; max-width: 100%; overflow-x: auto; scrollbar-width: none; padding: 6px; border-radius: var(--r-pill); background: var(--mist); position: relative; margin-bottom: 3rem; }
+.tabs button { position: relative; z-index: 1; flex: none; padding: .8rem clamp(.9rem, 3vw, 1.4rem); border-radius: var(--r-pill); font-weight: 700; transition: color .3s; }
+.tabs button[aria-selected="true"] { color: var(--paper); }
+.tabs__pill { position: absolute; top: 6px; bottom: 6px; left: 0; border-radius: var(--r-pill); background: var(--ink); transition: transform .5s var(--ease), width .5s var(--ease); }
+.tab-panel[hidden] { display: none; }
+.tab-panel { animation: fade-up .6s var(--ease); }
+@keyframes fade-up { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+.addons { list-style: none; padding: 0; display: grid; gap: 0; border-top: 1px solid var(--line); }
+@media (min-width: 760px) { .addons { grid-template-columns: 1fr 1fr; column-gap: 3rem; } }
+.addons li { display: flex; justify-content: space-between; gap: 1rem; padding: 1.1rem 0; border-bottom: 1px solid var(--line); }
+.addons li span:last-child { font-weight: 700; white-space: nowrap; }

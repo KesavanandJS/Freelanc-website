@@ -1,0 +1,25 @@
+/* Service, platform hub and industry pages */
+.page-hero { position: relative; padding: 9rem 0 clamp(4rem, 8vw, 6rem); overflow: hidden; }
+.page-hero__grid { display: grid; gap: 3rem; align-items: end; }
+@media (min-width: 1000px) { .page-hero__grid { grid-template-columns: minmax(0, 1.25fr) minmax(0, .75fr); } }
+.page-hero h1 { font-size: clamp(2.6rem, 1.4rem + 4.4vw, 5.4rem); line-height: .98; }
+.page-hero .lead { margin-top: 1.5rem; }
+.page-hero .btn-row { margin-top: 2rem; }
+.page-hero__swatch { position: relative; width: min(100%, 340px); aspect-ratio: 1; justify-self: end; align-self: center; border-radius: 50% 50% 46% 54% / 52% 44% 56% 48%; overflow: hidden; animation: morph 14s ease-in-out infinite; box-shadow: var(--shadow-float); }
+@keyframes morph { 50% { border-radius: 44% 56% 54% 46% / 46% 56% 44% 54%; } }
+.page-hero__swatch .weave { -webkit-mask-image: none; mask-image: none; }
+.pains { list-style: none; padding: 0; display: grid; gap: 0; border-top: 1px solid var(--line); }
+.pains li { display: grid; grid-template-columns: 3rem 1fr; gap: 1rem; padding: 1.4rem 0; border-bottom: 1px solid var(--line); font-size: var(--step-1); align-items: baseline; }
+.pains li span { font-family: var(--font-mono); font-size: .95rem; color: var(--accent); }
+.includes { list-style: none; padding: 0; columns: 1; column-gap: 3rem; }
+@media (min-width: 700px) { .includes { columns: 2; } }
+.includes li { break-inside: avoid; display: grid; grid-template-columns: 28px 1fr; gap: .8rem; padding: .85rem 0; border-bottom: 1px dashed var(--line); }
+.includes svg { width: 22px; height: 22px; color: var(--accent-deep); margin-top: .15rem; }
+.fit { display: grid; gap: 2rem; grid-template-columns: 1fr; }
+@media (min-width: 900px) { .fit { grid-template-columns: repeat(3, 1fr); } }
+.fit__item { border-left: 1px solid var(--accent); padding-left: 1.4rem; display: grid; gap: .6rem; align-content: start; }
+.fit__item h3 { font-size: 1.35rem; }
+.fit__item p { color: var(--ink-soft); }
+.related { display: flex; flex-wrap: wrap; gap: .7rem; }
+.related a { padding: .8rem 1.3rem; border-radius: var(--r-pill); box-shadow: inset 0 0 0 1.5px var(--line); text-decoration: none; font-weight: 600; transition: box-shadow .3s, background .3s, color .3s; }
+.related a:hover { background: var(--ink); color: var(--paper); box-shadow: none; }

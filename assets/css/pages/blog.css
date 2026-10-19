@@ -1,0 +1,7 @@
+/* Blog hub */
+.posts { list-style: none; padding: 0; border-top: 1px solid var(--line); }
+.posts li { display: grid; gap: .5rem; padding: 1.6rem 0; border-bottom: 1px solid var(--line); }
+@media (min-width: 760px) { .posts li { grid-template-columns: 10rem 1fr auto; gap: 2rem; align-items: baseline; } }
+.posts h3 { font-size: clamp(1.2rem, 2vw, 1.5rem); }
+.posts .tag { justify-self: start; }
+.posts__soon { font-size: .9rem; color: var(--ink-soft); font-weight: 600; }

@@ -1,0 +1,21 @@
+/* Base typography */
+body { font-family: var(--font-body); font-size: var(--step-0); color: var(--ink); background: var(--paper); }
+h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 600; line-height: 1.02; letter-spacing: -0.03em; text-wrap: balance; }
+h1 { font-size: var(--step-5); font-weight: 600; letter-spacing: -0.045em; line-height: .98; }
+h2 { font-size: var(--step-4); letter-spacing: -0.035em; }
+h3 { font-size: var(--step-2); line-height: 1.2; letter-spacing: -0.015em; font-weight: 600; }
+p { max-width: 64ch; text-wrap: pretty; }
+.lead { font-size: var(--step-1); color: var(--ink-soft); line-height: 1.55; max-width: 52ch; }
+.muted { color: var(--ink-soft); }
+.small { font-size: var(--step--1); }
+.prose p + p, .prose p + ul, .prose ul + p { margin-top: 1em; }
+.prose h2 { margin: 2.2em 0 .6em; font-size: var(--step-3); }
+.prose ul { padding-left: 1.2em; display: grid; gap: .4em; }
+.prose a, .link { color: var(--accent-deep); text-decoration-thickness: 1.5px; text-underline-offset: 3px; }
+.prose a:hover, .link:hover { color: var(--accent); }
+::selection { background: var(--accent-soft); color: var(--ink); }
+.accent { color: var(--accent); }
+.band--ink .accent, .hero .accent, .cta-band .accent { color: #6F8FF0; }
+.mono, .tag, .breadcrumb, .hero__note, .tier__flag, .posts__soon { font-family: var(--font-mono); letter-spacing: 0; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+.visually-hidden { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }

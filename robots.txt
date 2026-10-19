@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /_dev/
+Disallow: /thank-you/
+
+Sitemap: https://pixelloom.in/sitemap.xml

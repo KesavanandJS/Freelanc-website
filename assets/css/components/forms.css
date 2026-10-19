@@ -1,0 +1,14 @@
+/* Forms */
+.form { display: grid; gap: 1.4rem; }
+.form__row { display: grid; gap: 1.4rem; }
+@media (min-width: 640px) { .form__row { grid-template-columns: 1fr 1fr; } }
+.field { display: grid; gap: .45rem; }
+.field label { font-weight: 700; font-size: .95rem; }
+.field input, .field select, .field textarea { width: 100%; padding: .95rem 0; border: 0; border-bottom: 2px solid var(--line); background: transparent; border-radius: 0; transition: border-color .3s; font-size: 1.05rem; }
+.field textarea { min-height: 7rem; resize: vertical; }
+.field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--accent); }
+.field__hint { font-size: .85rem; color: var(--ink-soft); }
+.field__error { font-size: .88rem; color: #B42318; font-weight: 600; display: none; }
+.field.is-invalid input, .field.is-invalid select, .field.is-invalid textarea { border-color: #B42318; }
+.field.is-invalid .field__error { display: block; }
+.form__status { font-weight: 600; color: var(--accent-deep); min-height: 1.5em; }

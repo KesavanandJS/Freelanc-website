@@ -1,0 +1,14 @@
+/* Site footer */
+.site-footer { background: var(--ink); color: #D8D3CB; padding: clamp(4.5rem, 8vw, 6.5rem) 0 2rem; position: relative; overflow: hidden; }
+.site-footer a { color: var(--paper); text-decoration: none; transition: color .2s; }
+.site-footer a:hover { color: var(--accent); }
+.footer-selvedge { position: absolute; inset: 0 0 auto; height: 3px; background: linear-gradient(90deg, transparent, var(--accent) 20%, var(--accent) 80%, transparent); }
+.footer-grid { display: grid; gap: 2.5rem; grid-template-columns: 1fr; }
+@media (min-width: 760px) { .footer-grid { grid-template-columns: 1.5fr 1fr 1fr 1.2fr; } }
+.footer-brand .brand { color: var(--paper); }
+.footer-brand p { margin-top: 1rem; max-width: 32ch; }
+.site-footer h2 { font-size: 1rem; font-family: var(--font-body); font-weight: 700; letter-spacing: 0; color: var(--paper); margin-bottom: 1rem; }
+.site-footer ul { list-style: none; padding: 0; display: grid; gap: .55rem; }
+.footer-bottom { margin-top: 3.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,.14); display: flex; flex-wrap: wrap; gap: 1rem 2rem; justify-content: space-between; font-size: var(--step--1); color: #A9A39A; }
+.footer-bottom ul { display: flex; gap: 1.5rem; }
+.footer-wordmark { font-family: var(--font-display); font-weight: 600; font-size: clamp(3rem, 15vw, 14rem); letter-spacing: -0.06em; line-height: .78; color: rgba(246,245,241,.06); margin-top: 3rem; white-space: nowrap; user-select: none; }

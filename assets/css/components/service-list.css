@@ -1,0 +1,14 @@
+/* Large typographic list of services (not cards) */
+.svc-list { list-style: none; padding: 0; border-top: 1px solid var(--line); }
+.svc-list li { border-bottom: 1px solid var(--line); }
+.svc-row { position: relative; display: grid; grid-template-columns: 1fr; gap: .4rem 2rem; padding: 1.6rem .2rem; text-decoration: none; align-items: center; overflow: hidden; isolation: isolate; }
+@media (min-width: 760px) { .svc-row { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr) 48px; padding: 2rem .2rem; } }
+.svc-row::before { content: ""; position: absolute; inset: 0; z-index: -1; background: var(--mist); transform: scaleY(0); transform-origin: bottom; transition: transform .45s var(--ease); }
+.svc-row:hover::before, .svc-row:focus-visible::before { transform: scaleY(1); }
+.svc-row h3 { font-size: clamp(1.5rem, 2.8vw, 2.3rem); letter-spacing: -0.025em; transition: transform .45s var(--ease), color .3s; }
+.svc-row:hover h3 { transform: translateX(14px); color: var(--accent); }
+.svc-row p { color: var(--ink-soft); }
+.svc-row__needle { display: none; width: 44px; height: 44px; border-radius: 50%; background: var(--paper); place-items: center; transition: transform .45s var(--ease), background .3s; }
+@media (min-width: 760px) { .svc-row__needle { display: grid; } }
+.svc-row:hover .svc-row__needle { transform: rotate(-45deg); background: var(--accent); color: var(--white); }
+.svc-row__needle svg { width: 18px; height: 18px; }
