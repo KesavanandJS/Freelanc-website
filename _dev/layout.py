@@ -79,7 +79,9 @@ def rel(path):
 def head(path, title, desc, css, schema=None, noindex=False):
     p = rel(path)
     url = f"{DOMAIN}/{path}"
-    links = "\n".join(f'  <link rel="stylesheet" href="{p}assets/css/{c}">' for c in BASE_CSS + css)
+    # All page CSS is bundled into one file at build time (see bundle_assets() in
+    # build.py) so a page needs a single stylesheet request instead of a dozen.
+    links = f'  <link rel="stylesheet" href="{p}assets/css/app.min.css">'
     ld = ""
     if schema:
         ld = "\n".join(f'  <script type="application/ld+json">{json.dumps(s, ensure_ascii=False)}</script>' for s in schema)
@@ -105,7 +107,8 @@ def head(path, title, desc, css, schema=None, noindex=False):
   <link rel="icon" href="{p}assets/img/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="{FONTS}">
+  <link rel="stylesheet" href="{FONTS}" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="{FONTS}"></noscript>
 {links}
 {ld}
 </head>"""
@@ -154,7 +157,11 @@ def header(path):
 def footer(path, js):
     p = rel(path)
     svc = "".join(f'<li><a href="{p}{h}">{n}</a></li>' for h, n, _ in NAV_SERVICES)
-    scripts = "\n".join(f'<script src="{p}assets/js/{j}" defer></script>' for j in BASE_JS + js)
+    # All page scripts are bundled into one deferred file at build time (see
+    # bundle_assets() in build.py); each script is a self-checking IIFE that
+    # no-ops when its target element isn't on the page, so one bundle is safe
+    # to include everywhere and saves a request per script on every page.
+    scripts = f'<script src="{p}assets/js/app.min.js" defer></script>'
     return f"""</main>
 <footer class="site-footer">
   <div class="footer-selvedge" aria-hidden="true"></div>
