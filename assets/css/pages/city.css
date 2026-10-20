@@ -2,7 +2,7 @@
 .city-hero { padding: 9rem 0 clamp(3rem, 6vw, 5rem); position: relative; overflow: hidden; }
 .city-hero__name { font-family: var(--font-display); font-weight: 600; font-size: clamp(2.8rem, 13.5vw, 13rem); white-space: nowrap; letter-spacing: -0.06em; line-height: .85; margin: 0 0 2rem -0.04em; background: linear-gradient(100deg, var(--ink) 0 45%, var(--accent) 45% 70%, var(--accent-soft) 70%); -webkit-background-clip: text; background-clip: text; color: transparent; background-size: 220% 100%; background-position: 100% 0; animation: dye 2.4s var(--ease-in-out) .4s forwards; }
 @keyframes dye { to { background-position: 0 0; } }
-.city-hero h1 { font-size: clamp(1.9rem, 1.2rem + 2.6vw, 3.4rem); max-width: 22ch; }
+.city-hero h1 { font-size: clamp(1.7rem, 1.1rem + 2.1vw, 2.8rem); max-width: 22ch; }
 .city-hero .lead { margin-top: 1.4rem; }
 .city-hero .btn-row { margin-top: 2rem; }
 .areas { display: flex; flex-wrap: wrap; gap: .4rem 1.6rem; font-family: var(--font-display); font-weight: 600; font-size: clamp(1.2rem, 2.4vw, 1.8rem); letter-spacing: -0.02em; list-style: none; padding: 0; }

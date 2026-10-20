@@ -4,7 +4,7 @@
 .band { padding-block: var(--section); position: relative; }
 .band--mist { background: var(--mist); }
 .band--ink { background: var(--ink); color: var(--paper); }
-.band--ink .lead, .band--ink .muted { color: #C9C4BC; }
+.band--ink .lead, .band--ink .muted { color: var(--on-dark-soft); }
 .band--tight { padding-block: calc(var(--section) * .6); }
 .section-head { display: grid; gap: 1.1rem; margin-bottom: clamp(2.5rem, 6vw, 4.5rem); max-width: 46rem; }
 .split { display: grid; gap: clamp(2rem, 6vw, 6rem); grid-template-columns: 1fr; }
@@ -16,6 +16,6 @@
 .skip-link:focus { top: 1rem; }
 .breadcrumb { font-size: var(--step--1); color: var(--ink-soft); margin-bottom: 1.6rem; }
 .breadcrumb ol { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: .4rem; }
-.breadcrumb li + li::before { content: "/"; margin-right: .4rem; color: #B3ADA4; }
+.breadcrumb li + li::before { content: "/"; margin-right: .4rem; color: var(--line); }
 .breadcrumb a { text-decoration: none; }
 .breadcrumb a:hover { color: var(--accent); }

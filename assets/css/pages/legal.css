@@ -2,5 +2,5 @@
 .legal { padding: 9rem 0 var(--section); }
 .legal h1 { font-size: var(--step-4); margin-bottom: 1rem; }
 .notfound { min-height: 90svh; display: grid; place-items: center; text-align: center; padding: 8rem 0 4rem; }
-.notfound h1 { font-size: clamp(5rem, 20vw, 14rem); line-height: .85; background: linear-gradient(90deg, var(--ink), var(--accent)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.notfound h1 { font-size: clamp(4rem, 16vw, 11rem); line-height: .85; background: linear-gradient(90deg, var(--ink), var(--accent)); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .notfound p { margin: 1.5rem auto 2rem; }

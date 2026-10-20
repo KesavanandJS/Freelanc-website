@@ -7,5 +7,7 @@
 .skills li { padding: .6rem 1.1rem; border-radius: var(--r-pill); background: var(--mist); font-weight: 600; }
 .values { display: grid; gap: 2rem; grid-template-columns: 1fr; }
 @media (min-width: 760px) { .values { grid-template-columns: repeat(3, 1fr); } }
+.values > div { display: grid; gap: .6rem; align-content: start; }
+.values svg { width: 34px; height: 34px; color: var(--accent-deep); }
 .values h3 { font-size: 1.35rem; margin-bottom: .5rem; }
 .values p { color: var(--ink-soft); }

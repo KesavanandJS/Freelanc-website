@@ -3,10 +3,10 @@
   var NS = 'http://www.w3.org/2000/svg';
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var palettes = {
-    hero: { warp: ['#F6F5F1', '#DEDAD3'], weft: ['#2F5BE0', '#5B7FE8', '#2F5BE0', '#8FA8F0'] },
-    pink: { warp: ['#1C1D22', '#2B2D35'], weft: ['#2F5BE0', '#DCE4FB'] },
-    peacock: { warp: ['#1C1D22', '#2B2D35'], weft: ['#2448B8', '#8FA8F0'] },
-    turmeric: { warp: ['#1C1D22', '#2B2D35'], weft: ['#8FA8F0', '#DCE4FB'] }
+    hero: { warp: ['#DCCBA8', '#E8DBC0'], weft: ['#D9713F', '#F3C94D', '#B8572B', '#E8936A'] },
+    pink: { warp: ['#2B241C', '#453A2C'], weft: ['#D9713F', '#F6D9C4'] },
+    peacock: { warp: ['#2B241C', '#453A2C'], weft: ['#B8572B', '#E8936A'] },
+    turmeric: { warp: ['#2B241C', '#453A2C'], weft: ['#F3C94D', '#FBE9AE'] }
   };
 
   function el(name, attrs) {

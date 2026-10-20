@@ -2,9 +2,9 @@
 Every page is written to <slug>/index.html so URLs stay clean (/website-designer-coimbatore/)."""
 from pathlib import Path
 from html import escape
-from layout import (BRAND, DOMAIN, EMAIL, WHATSAPP, PHONE_DISPLAY, ICON, logo_mark, why_icon, wa_link, rel, page, breadcrumb,
+from layout import (BRAND, DOMAIN, EMAIL, WHATSAPP, PHONE_DISPLAY, ICON, logo_mark, wa_link, rel, page, breadcrumb,
                     business_schema, faq_schema, service_schema, faq_block, process_block, cta_block)
-from content_services import SERVICES, PRICE, PRICE_LANDING, PRICE_STATIC, PRICE_SHOPIFY_BASIC, PRICE_SHOPIFY_ADVANCED
+from content_services import SERVICES, PRICE_LANDING, PRICE_STATIC, PRICE_SHOPIFY_BASIC, PRICE_SHOPIFY_ADVANCED
 
 ROOT = Path(__file__).resolve().parent.parent
 BUILT = []
@@ -16,13 +16,9 @@ BUILT = []
 # script on every page. Source files stay split under assets/js/ for editing.
 JS_BUNDLE = [
     "main.js", "reveal.js", "weave.js", "process.js", "faq.js",
-    "contact.js", "pricing.js", "work-filter.js",
+    "contact.js", "pricing.js", "work-filter.js", "work-carousel.js",
 ]
 
-# Official brand marks (Simple Icons, CC0) for the platform cards on Home.
-LOGO_HTML5 = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z"/></svg>'
-LOGO_WORDPRESS = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.469 6.825c.84 1.537 1.318 3.3 1.318 5.175 0 3.979-2.156 7.456-5.363 9.325l3.295-9.527c.615-1.54.82-2.771.82-3.864 0-.405-.026-.78-.07-1.11m-7.981.105c.647-.03 1.232-.105 1.232-.105.582-.075.514-.93-.067-.899 0 0-1.755.135-2.88.135-1.064 0-2.85-.15-2.85-.15-.585-.03-.661.855-.075.885 0 0 .54.061 1.125.09l1.68 4.605-2.37 7.08L5.354 6.9c.649-.03 1.234-.1 1.234-.1.585-.075.516-.93-.065-.896 0 0-1.746.138-2.874.138-.2 0-.438-.008-.69-.015C4.911 3.15 8.235 1.215 12 1.215c2.809 0 5.365 1.072 7.286 2.833-.046-.003-.091-.009-.141-.009-1.06 0-1.812.923-1.812 1.914 0 .89.513 1.643 1.06 2.531.411.72.89 1.643.89 2.977 0 .915-.354 1.994-.821 3.479l-1.075 3.585-3.9-11.61.001.014zM12 22.784c-1.059 0-2.081-.153-3.048-.437l3.237-9.406 3.315 9.087c.024.053.05.101.078.149-1.12.393-2.325.609-3.582.609M1.211 12c0-1.564.336-3.05.935-4.39L7.29 21.709C3.694 19.96 1.212 16.271 1.211 12M12 0C5.385 0 0 5.385 0 12s5.385 12 12 12 12-5.385 12-12S18.615 0 12 0"/></svg>'
-LOGO_SHOPIFY = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.337 23.979l7.216-1.561s-2.604-17.613-2.625-17.73c-.018-.116-.114-.192-.211-.192s-1.929-.136-1.929-.136-1.275-1.274-1.439-1.411c-.045-.037-.075-.057-.121-.074l-.914 21.104h.023zM11.71 11.305s-.81-.424-1.774-.424c-1.447 0-1.504.906-1.504 1.141 0 1.232 3.24 1.715 3.24 4.629 0 2.295-1.44 3.76-3.406 3.76-2.354 0-3.54-1.465-3.54-1.465l.646-2.086s1.245 1.066 2.28 1.066c.675 0 .975-.545.975-.932 0-1.619-2.654-1.694-2.654-4.359-.034-2.237 1.571-4.416 4.827-4.416 1.257 0 1.875.361 1.875.361l-.945 2.715-.02.01zM11.17.83c.136 0 .271.038.405.135-.984.465-2.064 1.639-2.508 3.992-.656.213-1.293.405-1.889.578C7.697 3.75 8.951.84 11.17.84V.83zm1.235 2.949v.135c-.754.232-1.583.484-2.394.736.466-1.777 1.333-2.645 2.085-2.971.193.501.309 1.176.309 2.1zm.539-2.234c.694.074 1.141.867 1.429 1.755-.349.114-.735.231-1.158.366v-.252c0-.752-.096-1.371-.271-1.871v.002zm2.992 1.289c-.02 0-.06.021-.078.021s-.289.075-.714.21c-.423-1.233-1.176-2.37-2.508-2.37h-.115C12.135.209 11.669 0 11.265 0 8.159 0 6.675 3.877 6.21 5.846c-1.194.365-2.063.636-2.16.674-.675.213-.694.232-.772.87-.075.462-1.83 14.063-1.83 14.063L15.009 24l.927-21.166z"/></svg>'
 
 
 def bundle_assets():
@@ -51,7 +47,7 @@ def includes_list(items):
     return '<ul class="includes">' + "".join(f"<li>{ICON['check']}<span>{escape(i)}</span></li>" for i in items) + "</ul>"
 
 
-def tiers_html(packages, colors=("#2448B8", "#2F5BE0", "#8FA8F0"), flag_middle=True):
+def tiers_html(packages, colors=("#B8572B", "#D9713F", "#6B5D4C"), flag_middle=True):
     out = []
     for i, (name, price, items) in enumerate(packages):
         flag = '<span class="tier__flag">Most popular</span>' if flag_middle and len(packages) == 3 and i == 1 else ""
@@ -64,27 +60,66 @@ def tiers_html(packages, colors=("#2448B8", "#2F5BE0", "#8FA8F0"), flag_middle=T
 
 
 WORK = [
-    dict(name="Gourmet Bakes Sweets Cafe", platform="shopify", tags=["Shopify", "Food and sweets"],
-         line="Fresh from the counter, now online", fabric="repeating-linear-gradient(135deg,#1C1D22 0 18px,#24262D 18px 36px)",
-         text="A Shopify store for a sweets, savouries and bakes cafe, with festive collections, gift boxes and simple ordering for local customers."),
-    dict(name="Herbie", platform="website", tags=["Website", "Copywriting", "D2C"],
-         line="Flavoured nuts with a personality", fg="#1C1D22", fabric="radial-gradient(circle at 20% 30%,#FFFFFF 0 10%,transparent 11%) 0 0/60px 60px,#EDEAE4",
-         text="A brand website and product copy for a flavoured cashew and badam brand, written to make each flavour feel worth trying."),
+    dict(name="Minukhi", platform="shopify", tags=["Shopify", "Women's ethnic wear", "D2C"],
+         logo="assets/img/work/minukhi-logo.webp",
+         logo_alt="Minukhi logo, a women's Indian ethnic wear brand",
+         text="A Shopify store for a women's ethnic wear label, with curated kurta, maxi and co-ord collections, best-seller and made-to-order sections, and a mobile-first checkout built to convert browsers into buyers.",
+         url="https://minukhi.in/"),
+    dict(name="Tom Hiddle", platform="shopify", tags=["Shopify", "Family apparel", "D2C"],
+         logo="assets/img/work/tom-hiddle-logo.webp",
+         logo_alt="Tom Hiddle logo, a men's, women's and kids' apparel brand",
+         text="A Shopify store for a family apparel brand, with men's, women's, boys' and girls' collections organised into a clean catalogue and a straightforward mobile checkout.",
+         url="https://tomhiddle.com/"),
+    dict(name="Adiréa", platform="shopify", tags=["Shopify", "Hair and face care", "D2C"],
+         logo="assets/img/work/adirea-logo.webp",
+         logo_alt="Adiréa logo, a plant-based hair and face care brand",
+         text="A Shopify store for a plant-based hair and face care brand, with product bundles, subscriptions and a clean, routine-led shopping experience built to turn first-time buyers into repeat customers.",
+         url="https://adirea.com/"),
+    dict(name="Noolizhai", platform="shopify", tags=["Shopify", "Boutique fashion", "D2C"],
+         logo="assets/img/work/noolizhai-logo.webp",
+         logo_alt="Noolizhai logo, a women's Indian and western fashion boutique",
+         text="A Shopify store for a women's fashion boutique, blending Indian kurtis and festive sets with western silhouettes, built with a clean catalogue and an easy mobile checkout.",
+         url="https://noolizhai.com/"),
+    dict(name="Uzhamagal", platform="shopify", tags=["Shopify", "Women's and kids' fashion", "D2C"],
+         logo="assets/img/work/uzhamagal-logo.webp",
+         logo_alt="Uzhamagal logo, a women's and kids' ethnic and casual wear brand",
+         text="A Shopify store for a multi-city fashion retailer, covering ethnic, casual and maternity wear for women plus kids' clothing, with immediate-dispatch and worldwide-shipping options.",
+         url="https://www.uzhamagal.in/"),
+    dict(name="Niram Fashion", platform="shopify", tags=["Shopify", "Maternity wear", "D2C"],
+         logo="assets/img/work/niram-fashion-logo.webp",
+         logo_alt="Niram Fashion logo, a maternity and nursing wear brand",
+         text="A Shopify store for a maternity and nursing-wear brand, with feeding-friendly kurtis, loungewear and kids' essentials organised by fabric, built to be comfortable to shop through pregnancy.",
+         url="https://www.niramfashion.com/"),
 ]
 
 
-def work_rows(path, limit=None, with_filter_attr=False):
+def work_rows(path, limit=None, with_filter_attr=False, carousel=False):
     p = rel(path)
     rows = []
     for w in WORK[:limit]:
-        tags = "".join(f'<span class="tag">{t}</span>' for t in w["tags"])
+        meta = " · ".join(w["tags"])
         attr = f' data-platform="{w["platform"]}"' if with_filter_attr else ""
-        rows.append(f"""<article class="work-row"{attr}>
-  <div class="work-row__visual" data-reveal><div class="mock"><div class="mock__bar" aria-hidden="true"><i></i><i></i><i></i></div>
-    <div class="mock__body" style="--fabric:{w['fabric']};--fg:{w.get('fg', '#FFFFFF')}" role="img" aria-label="Preview of the {escape(w['name'])} website"><b>{escape(w['line'])}</b><small>{escape(w['name'])}</small></div></div></div>
-  <div data-reveal style="--d:.15s"><div class="work-row__meta">{tags}</div><h3>{escape(w['name'])}</h3><p>{escape(w['text'])}</p>
-    <a class="text-link" href="{p}contact/">Start a project like this</a></div>
+        if w.get("photo"):
+            media = f'<img src="{p}{w["photo"]}" alt="{escape(w["photo_alt"])}" loading="lazy" width="960" height="425">'
+            media_cls = "work-card__media work-card__media--photo"
+        elif w.get("logo"):
+            media = f'<img src="{p}{w["logo"]}" alt="{escape(w["logo_alt"])}" loading="lazy" width="345" height="88">'
+            media_cls = "work-card__media work-card__media--logo"
+        else:
+            media = f'<p>{escape(w["line"])}</p>'
+            media_cls = "work-card__media"
+        visit = (f'<a class="work-card__visit" href="{escape(w["url"])}" target="_blank" rel="noopener" '
+                 f'aria-label="Visit the {escape(w["name"])} website"></a>') if w.get("url") else ""
+        rows.append(f"""<article class="work-card"{attr} data-reveal>
+  {visit}
+  <div class="{media_cls}">{media}</div>
+  <div class="work-card__meta">{escape(meta)}</div>
+  <h3>{escape(w['name'])}</h3><p>{escape(w['text'])}</p>
+  <a class="text-link" href="{p}contact/">Start a project like this</a>
 </article>""")
+    if carousel:
+        return ('<div class="work-carousel-wrap"><div class="work-carousel">' + "".join(rows) +
+                '</div><div class="work-dots" data-work-dots></div></div>')
     return '<div class="work-rows">' + "".join(rows) + "</div>"
 
 
@@ -107,16 +142,24 @@ def build_home():
     p = rel(path)
     industries = ["Boutiques", "Saree sellers", "Kidswear brands", "Knitwear exporters", "Sweets and bakeries", "D2C brands", "Clinics", "Local services"]
     marquee_items = "".join(f'<span class="marquee__item">{i}{ICON["glyph"]}</span>' for i in industries)
+    svc_items = [s for s in SERVICES if s["slug"] not in ("website-for-boutiques/", "website-for-saree-sellers/")]
+    svc_card_desc = {
+        "shopify-website-development/": "Shopify stores built to look like your brand and sell on mobile.",
+        "ecommerce-website-development/": "Online stores on Shopify with payments, shipping and GST set up.",
+        "landing-page-design/": "A focused landing page built to turn ad clicks into enquiries.",
+    }
     svc_rows = "".join(
-        f'<li><a class="svc-row" href="{p}{s["slug"]}"><h3>{escape(s["nav"])}</h3><p>{escape(s["lead"].split(". ")[0].rstrip("."))}.</p>'
-        f'<span class="svc-row__needle" aria-hidden="true">{ICON["needle"]}</span></a></li>'
-        for s in SERVICES if s["slug"] not in ("website-for-boutiques/", "website-for-saree-sellers/"))
-    why = [("You talk to the person building it", "No sales team or account managers. Every message reaches the designer working on your site.", "#2F5BE0", "#8FA8F0"),
-           ("Built to be found", "Clean code, fast pages and proper SEO setup, so Google and your customers can find you.", "#2448B8", "#2F5BE0"),
-           ("Fast on every phone", "Designed mobile-first and tested on real devices, because that's where your customers shop.", "#8FA8F0", "#2448B8"),
-           ("Tamil and English", "Talk through your project in the language you're comfortable with.", "#2F5BE0", "#2448B8")]
-    why_html = "".join(f'<div class="why__item" data-reveal style="--d:{i*0.08}s">{why_icon(c1, c2)}<div><h3>{t}</h3><p>{d}</p></div></div>'
-                       for i, (t, d, c1, c2) in enumerate(why))
+        f'<li><a class="svc-card" href="{p}{s["slug"]}" style="--d:{(i-1)*0.06}s" data-reveal>'
+        f'<span class="svc-card__num" aria-hidden="true">{i:02d}</span>'
+        f'<h3>{escape(s["nav"])}</h3><p>{escape(svc_card_desc.get(s["slug"]) or s["lead"].split(". ")[0].rstrip(".") + ".")}</p>'
+        f'<span class="svc-card__arrow" aria-hidden="true">{ICON["needle"]}</span></a></li>'
+        for i, s in enumerate(svc_items, 1))
+    why = [("You talk to the person building it", "No sales team or account managers. Every message reaches the designer working on your site.", "#D9713F", "chat"),
+           ("Built to be found", "Clean code, fast pages and proper SEO setup, so Google and your customers can find you.", "#B8572B", "target"),
+           ("Fast on every phone", "Designed mobile-first and tested on real devices, because that's where your customers shop.", "#D9713F", "zap"),
+           ("Tamil and English", "Talk through your project in the language you're comfortable with.", "#B8572B", "globe")]
+    why_html = "".join(f'<div class="why__item" style="--c:{c};--d:{i*0.08}s" data-reveal>{ICON[icon]}<div><h3>{t}</h3><p>{d}</p></div></div>'
+                       for i, (t, d, c, icon) in enumerate(why))
     body = f"""
 <section class="hero" aria-labelledby="hero-title">
   <div class="container hero__grid">
@@ -127,16 +170,10 @@ def build_home():
         <a class="btn" href="{p}contact/">Get a free quote</a>
         <a class="btn btn--ghost" href="{p}work/">See my work</a>
       </div>
-      <p class="hero__note hero__fade" style="--d:1.3s"><i aria-hidden="true"></i><span>Now booking projects for <span data-booking-month>next month</span>. I reply within 24 hours.</span></p>
     </div>
     <div class="hero__visual" aria-hidden="true">
-      <div class="weave" data-weave="hero" data-gap="36"></div>
-      <div class="phone"><div class="phone__screen">
-        <div class="phone__bar"><span>Your Boutique</span><i></i></div>
-        <div class="phone__banner"><small>New arrivals</small><b>Festive silks are here</b></div>
-        <div class="phone__grid"><div class="phone__item" data-price="₹2,450"></div><div class="phone__item" data-price="₹1,890"></div><div class="phone__item" data-price="₹3,200"></div><div class="phone__item" data-price="₹999"></div></div>
-        <div class="phone__cta">Add to cart</div>
-      </div><div class="phone__toast"><i></i>New order received</div></div>
+      <div class="hero__sketch"><img src="{p}assets/img/website-designer-coimbatore-tiruppur-hero.webp" alt="Website designer in Coimbatore and Tiruppur: hand-drawn desk illustration with a laptop, sketchbook and tailoring tools" width="950" height="950" fetchpriority="high"></div>
+      <div class="phone__toast"><i></i>New order received</div>
     </div>
   </div>
 </section>
@@ -145,18 +182,18 @@ def build_home():
 
 <section class="band" aria-labelledby="platforms-title">
   <div class="container">
-    <div class="section-head" data-reveal><h2 id="platforms-title">A website that works <span class="accent">your way.</span></h2>
+    <div class="section-head platforms-head" data-reveal><h2 id="platforms-title">A website that works <span class="accent">your way.</span></h2>
       <p class="lead">Three ways to get online, each suited to a different kind of business. Not sure which fits? I'll tell you honestly.</p></div>
     <div class="platforms">
-      <div class="platform" style="--c:#2448B8" data-reveal><span class="platform__swatch" aria-hidden="true">{LOGO_HTML5}</span>
+      <div class="platform" style="--c:#B8572B" data-reveal>
         <h3>Custom HTML</h3><p class="platform__best">For a fast, low-cost profile or landing page.</p>
         <ul><li>Loads in under 2 seconds</li><li>No monthly platform fee</li><li>Nothing to update or hack</li></ul>
         <p class="platform__price">From {PRICE_LANDING}</p><a class="text-link" href="{p}custom-website-development/">Custom HTML websites</a></div>
-      <div class="platform" style="--c:#8FA8F0;--d:.1s" data-reveal><span class="platform__swatch" aria-hidden="true">{LOGO_WORDPRESS}</span>
+      <div class="platform" style="--c:#6B5D4C;--d:.1s" data-reveal>
         <h3>WordPress</h3><p class="platform__best">For businesses that publish and update often.</p>
         <ul><li>Strong for blogs and Google traffic</li><li>Secure, fast and backed up</li></ul>
         <p class="platform__price">From {PRICE_SHOPIFY_BASIC}</p><a class="text-link" href="{p}wordpress-website-development/">WordPress websites</a></div>
-      <div class="platform" style="--c:#2F5BE0;--d:.2s" data-reveal><span class="platform__swatch" aria-hidden="true">{LOGO_SHOPIFY}</span>
+      <div class="platform" style="--c:#D9713F;--d:.2s" data-reveal>
         <h3>Shopify</h3><p class="platform__best">For brands that sell online every day.</p>
         <ul><li>Payments, UPI and cash on delivery</li><li>Run your store from your phone</li><li>Shipping and GST built in</li></ul>
         <p class="platform__price">From {PRICE_SHOPIFY_BASIC}</p><a class="text-link" href="{p}shopify-website-development/">Shopify stores</a></div>
@@ -167,15 +204,15 @@ def build_home():
 <section class="band band--mist" aria-labelledby="services-title">
   <div class="container">
     <div class="section-head" data-reveal><h2 id="services-title">What I can <span class="accent">build</span> for you</h2></div>
-    <ul class="svc-list">{svc_rows}</ul>
+    <ul class="svc-grid">{svc_rows}</ul>
   </div>
 </section>
 
-<section class="band" aria-labelledby="work-title">
+<section class="band band--tight" aria-labelledby="work-title">
   <div class="container">
-    <div class="section-head" data-reveal><h2 id="work-title">Made with <span class="accent">intention.</span></h2>
+    <div class="section-head work-head" data-reveal><h2 id="work-title">Made with <span class="accent">intention.</span></h2>
       <p class="lead">Stores and websites for Tamil Nadu brands in food, sweets and nuts.</p></div>
-    {work_rows(path)}
+    {work_rows(path, carousel=True)}
   </div>
 </section>
 
@@ -199,17 +236,6 @@ def build_home():
       <a class="city-link" href="{p}website-designer-tiruppur/"><span class="city-link__name">Tiruppur</span>
         <span><p>Knitwear, kidswear and activewear brands, plus garment exporters who need a catalogue buyers trust.</p><span class="text-link">Website designer in Tiruppur</span></span></a>
     </div>
-  </div>
-</section>
-
-<section class="band" aria-labelledby="pricing-title">
-  <div class="container">
-    <div class="section-head" data-reveal><h2 id="pricing-title">Simple, <span class="accent">fixed</span> prices</h2>
-      <p class="lead">Agree the price before work starts. No hidden monthly charges from me.</p></div>
-    {tiers_html([("Starter", PRICE_STATIC, ["Business website, up to 5 pages", "WhatsApp, form and map", "Basic SEO setup"]),
-                 ("Business", PRICE, ["Custom design, up to 10 pages", "Full SEO and schema", "Training video"]),
-                 ("Online store", PRICE_SHOPIFY_BASIC, ["Shopify store, built around your products", "Payments, COD and shipping", "Up to 40 products"])])}
-    <p style="margin-top:2.5rem"><a class="text-link" href="{p}pricing/">See full pricing</a></p>
   </div>
 </section>
 
@@ -249,9 +275,9 @@ def build_services_hub():
 <section class="band band--mist" aria-labelledby="choose-title"><div class="container">
   <div class="section-head" data-reveal><h2 id="choose-title">How to choose</h2></div>
   <div class="fit">
-    <div class="fit__item" style="--c:#2F5BE0" data-reveal><h3>You want to sell online</h3><p>Choose a Shopify store, built around what you sell.</p></div>
-    <div class="fit__item" style="--c:#8FA8F0;--d:.1s" data-reveal><h3>You update content often</h3><p>Choose WordPress, so you can add pages, posts and offers yourself.</p></div>
-    <div class="fit__item" style="--c:#2448B8;--d:.2s" data-reveal><h3>You want fast and simple</h3><p>Choose a custom HTML site with no platform fees or plugins.</p></div>
+    <div class="fit__item" style="--c:#D9713F" data-reveal>{ICON['cart']}<h3>You want to sell online</h3><p>Choose a Shopify store, built around what you sell.</p></div>
+    <div class="fit__item" style="--c:#6B5D4C;--d:.1s" data-reveal>{ICON['edit']}<h3>You update content often</h3><p>Choose WordPress, so you can add pages, posts and offers yourself.</p></div>
+    <div class="fit__item" style="--c:#B8572B;--d:.2s" data-reveal>{ICON['zap']}<h3>You want fast and simple</h3><p>Choose a custom HTML site with no platform fees or plugins.</p></div>
   </div></div></section>
 {process_block()}
 {faq_block(faqs, mist=True)}
@@ -272,7 +298,7 @@ def build_service(s):
     is_industry = path.startswith("website-for-")
     crumb, crumb_ld = breadcrumb(path, [("Industries" if is_industry else "Services", None if is_industry else "services/"), (s["nav"], None)])
     pains = "".join(f'<li data-reveal style="--d:{i*0.08}s"><span>{i+1}</span>{escape(t)}</li>' for i, t in enumerate(s["pains"]))
-    fit = "".join(f'<div class="fit__item" style="--c:{c}" data-reveal><h3>{escape(t)}</h3><p>{escape(d)}</p></div>' for t, d, c in s["fit"])
+    fit = "".join(f'<div class="fit__item" style="--c:{c}" data-reveal>{ICON[i]}<h3>{escape(t)}</h3><p>{escape(d)}</p></div>' for t, d, c, i in s["fit"])
     related = "".join(f'<a href="{p}{r}">{escape(label(r))}</a>' for r in s["related"])
     body = f"""
 <section class="page-hero"><div class="container">{crumb}
@@ -436,9 +462,9 @@ def build_city(c):
 <section class="band band--mist" aria-labelledby="plat-title"><div class="container">
   <div class="section-head" data-reveal><h2 id="plat-title">Shopify, WordPress or a custom website?</h2></div>
   <div class="fit">
-    <div class="fit__item" style="--c:#2F5BE0" data-reveal><h3>Shopify</h3><p>For boutiques and brands that sell online every day. Products, payments, stock and orders in one dashboard.</p><a class="text-link" href="{p}shopify-website-development/">Shopify stores</a></div>
-    <div class="fit__item" style="--c:#8FA8F0" data-reveal><h3>WordPress</h3><p>For businesses that publish often or want a blog that brings Google traffic.</p><a class="text-link" href="{p}wordpress-website-development/">WordPress websites</a></div>
-    <div class="fit__item" style="--c:#2448B8" data-reveal><h3>Custom HTML</h3><p>For a fast, low-maintenance business profile or a landing page for ads, with no monthly platform fee.</p><a class="text-link" href="{p}custom-website-development/">Custom HTML websites</a></div>
+    <div class="fit__item" style="--c:#D9713F" data-reveal>{ICON['shopify']}<h3>Shopify</h3><p>For boutiques and brands that sell online every day. Products, payments, stock and orders in one dashboard.</p><a class="text-link" href="{p}shopify-website-development/">Shopify stores</a></div>
+    <div class="fit__item" style="--c:#6B5D4C" data-reveal>{ICON['wordpress']}<h3>WordPress</h3><p>For businesses that publish often or want a blog that brings Google traffic.</p><a class="text-link" href="{p}wordpress-website-development/">WordPress websites</a></div>
+    <div class="fit__item" style="--c:#B8572B" data-reveal>{ICON['html5']}<h3>Custom HTML</h3><p>For a fast, low-maintenance business profile or a landing page for ads, with no monthly platform fee.</p><a class="text-link" href="{p}custom-website-development/">Custom HTML websites</a></div>
   </div></div></section>
 
 <section class="band" aria-labelledby="work-title"><div class="container">
@@ -463,7 +489,7 @@ def build_city(c):
 </div></section>
 
 {faq_block(c['faqs'], title=f"Questions {c['name']} business owners ask")}
-{cta_block(path, c['cta'][0], c['cta'][1])}
+{cta_block(path)}
 """
     css = ["components/process.css", "components/faq.css", "pages/home.css", "pages/service.css", "pages/pricing.css", "pages/city.css"]
     write(path, page(path, c["title"], c["meta"], body, css, ["process.js", "faq.js"], schema))
@@ -519,7 +545,7 @@ def build_pricing():
   <p>You'll always get a written quote with a fixed price and timeline before any work begins. If something new comes up mid-project, we agree the cost before I build it.</p></div>
 </div></section>
 {faq_block(PRICING_FAQS, mist=True)}
-{cta_block(path, "Not sure which package fits?", "Tell me about your business and I'll recommend one, with a custom quote if you need something different.")}
+{cta_block(path)}
 """
     write(path, page(path, "Website Development Cost in India | Packages & Prices | PixelLoom",
                      "Clear, fixed prices for HTML, WordPress and Shopify websites. See what each package includes, add-ons and payment terms. No hidden costs.",
@@ -535,18 +561,15 @@ def build_work():
     body = f"""
 <section class="page-hero"><div class="container">{crumb}
   <h1 data-split>Recent work</h1>
-  <p class="lead hero__fade" style="--d:.8s">Stores and websites for Tamil Nadu brands. Filter by platform to see similar projects.</p>
+  <p class="lead hero__fade" style="--d:.8s">Shopify stores built for fashion, beauty and lifestyle brands.</p>
 </div></section>
 <section class="band band--tight"><div class="container">
-  <div class="filter" role="group" aria-label="Filter projects">
-    <button data-filter="all" aria-pressed="true">All</button><button data-filter="shopify" aria-pressed="false">Shopify</button>
-    <button data-filter="website" aria-pressed="false">Websites</button></div>
-  {work_rows(path, with_filter_attr=True)}
+  {work_rows(path)}
 </div></section>
-{cta_block(path, "Want a site like these?")}
+{cta_block(path)}
 """
     write(path, page(path, "Website Design Portfolio | Projects by PixelLoom",
-                     "Shopify stores and websites built for Tamil Nadu brands in food, sweets and nuts. See recent web design work.",
+                     "Shopify stores built for fashion, beauty and lifestyle brands. See recent web design work by PixelLoom.",
                      body, ["pages/home.css", "pages/service.css", "pages/work.css"], ["work-filter.js"], [crumb_ld]))
 
 
@@ -579,9 +602,9 @@ def build_about():
 <section class="band band--mist" aria-labelledby="values-title"><div class="container">
   <div class="section-head" data-reveal><h2 id="values-title">What you can expect</h2></div>
   <div class="values">
-    <div data-reveal><h3>Clear communication</h3><p>Regular updates on WhatsApp, in Tamil or English, and answers within 24 hours.</p></div>
-    <div data-reveal style="--d:.1s"><h3>Honest advice</h3><p>I'll tell you when you don't need a big site, an expensive app or a feature that won't pay off.</p></div>
-    <div data-reveal style="--d:.2s"><h3>You own everything</h3><p>Domain, hosting, store and logins are all in your name from day one.</p></div>
+    <div data-reveal>{ICON['chat']}<h3>Clear communication</h3><p>Regular updates on WhatsApp, in Tamil or English, and answers within 24 hours.</p></div>
+    <div data-reveal style="--d:.1s">{ICON['bulb']}<h3>Honest advice</h3><p>I'll tell you when you don't need a big site, an expensive app or a feature that won't pay off.</p></div>
+    <div data-reveal style="--d:.2s">{ICON['key']}<h3>You own everything</h3><p>Domain, hosting, store and logins are all in your name from day one.</p></div>
   </div>
 </div></section>
 {cta_block(path)}

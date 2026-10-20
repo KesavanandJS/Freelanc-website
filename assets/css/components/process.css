@@ -10,9 +10,11 @@
 }
 .process li { position: relative; padding-left: 4.2rem; counter-increment: step; }
 @media (min-width: 900px) { .process li { padding-left: 0; padding-top: 4.4rem; } }
-.process li::before { content: counter(step); position: absolute; left: 0; top: 0; width: 45px; height: 45px; border-radius: 50%; display: grid; place-items: center; background: var(--paper); box-shadow: inset 0 0 0 3px var(--line); font-family: var(--font-mono); font-weight: 500; font-size: .9rem; transition: background .4s, box-shadow .4s, color .4s; }
-.process li.is-done::before { background: var(--accent); color: var(--white); box-shadow: none; }
+.process li::before { content: counter(step); position: absolute; left: 0; top: 0; width: 45px; height: 45px; border-radius: var(--r-lg); display: grid; place-items: center; background: var(--white); border: 1.5px dashed var(--ink); font-family: var(--font-accent); font-weight: 700; font-size: 1.15rem; transition: background .4s, border-color .4s, color .4s, transform .3s var(--ease); }
+.process li:nth-child(odd)::before { transform: rotate(-4deg); }
+.process li:nth-child(even)::before { transform: rotate(3deg); }
+.process li.is-done::before { background: var(--accent); color: var(--white); border-style: solid; }
 .process h3 { font-size: 1.25rem; margin-bottom: .4rem; }
 .process p { color: var(--ink-soft); font-size: .98rem; }
-.band--mist .process li::before { background: var(--mist); }
+.band--mist .process li::before { background: var(--paper); }
 .band--mist .process li.is-done::before { background: var(--accent); }

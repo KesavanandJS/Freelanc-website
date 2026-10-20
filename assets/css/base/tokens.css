@@ -1,21 +1,24 @@
 /* Design tokens: colour, type, spacing, motion */
 :root {
-  /* Colour: warm off-white, near-black ink, one royal-blue accent */
-  --paper: #F6F5F1;         /* page background */
-  --white: #FFFFFF;
-  --mist: #EDEAE4;          /* soft panels */
-  --ink: #1C1D22;           /* text and dark sections */
-  --ink-soft: #5C5B57;      /* secondary text (AA on paper and mist) */
-  --primary: #2F5BE0;       /* buttons, accent words */
-  --accent: #2F5BE0;
-  --accent-deep: #2448B8;   /* hover, links */
-  --accent-soft: #DCE4FB;   /* selection, badges */
-  --line: #DEDAD3;
-  --on-dark: #F6F5F1;
-  --on-dark-soft: #B9B8B2;
+  /* Colour: warm paper, ink-brown, rust CTA, sunflower highlight */
+  --paper: #F7EFE1;         /* page background */
+  --paper-deep: #F0E3CC;    /* alternating band background */
+  --white: #FFFEFB;
+  --mist: #F0E3CC;          /* soft panels */
+  --ink: #2B241C;           /* text and dark sections */
+  --ink-soft: #6B5D4C;      /* secondary text (AA on paper and mist) */
+  --primary: #D9713F;       /* buttons, accent words */
+  --accent: #D9713F;
+  --accent-deep: #B8572B;   /* hover, links */
+  --accent-soft: #F6D9C4;   /* selection, badges */
+  --highlight: #F3C94D;     /* yellow marker-highlight */
+  --highlight-soft: #FBE9AE;
+  --line: #DCCBA8;
+  --on-dark: #F7EFE1;
+  --on-dark-soft: #CBB999;
 
-  /* Type: grotesque headings, clean sans body, monospace labels, cursive accent */
-  --font-display: "Familjen Grotesk", "Segoe UI", system-ui, sans-serif;
+  /* Type: warm serif headings, clean sans body, monospace labels, handwritten accent */
+  --font-display: "Fraunces", "Iowan Old Style", Georgia, serif;
   --font-body: "Hanken Grotesk", "Segoe UI", system-ui, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
   --font-accent: "Caveat", cursive;
@@ -23,21 +26,24 @@
   --step-0: 1.0625rem;
   --step-1: 1.2rem;
   --step-2: 1.5rem;
-  --step-3: clamp(1.9rem, 1.4rem + 1.6vw, 2.6rem);
-  --step-4: clamp(2.5rem, 1.6rem + 3.2vw, 4rem);
-  --step-5: clamp(3rem, 1.6rem + 5.6vw, 6.6rem);
+  --step-3: clamp(1.7rem, 1.25rem + 1.4vw, 2.3rem);
+  --step-4: clamp(2.1rem, 1.4rem + 2.6vw, 3.4rem);
+  --step-5: clamp(2.4rem, 1.4rem + 4.2vw, 5.2rem);
 
   /* Space and layout */
   --gutter: clamp(1.25rem, 4vw, 3rem);
-  --max: 1240px;
+  --max: 1060px;
   --narrow: 720px;
   --section: clamp(4.5rem, 10vw, 8.5rem);
 
-  /* Shape and motion */
-  --r-sm: 4px;
-  --r-lg: 6px;
-  --r-pill: 4px;            /* squared-off buttons, like the reference */
+  /* Shape and motion: hand-drawn cards (uneven radius, ink border, offset "sticker" shadow) */
+  --r-sm: 6px;
+  --r-lg: 10px;
+  --r-pill: 8px;
+  --r-sketch: 255px 18px 230px 14px / 16px 220px 18px 250px;
   --ease: cubic-bezier(.22, .8, .2, 1);
   --ease-in-out: cubic-bezier(.65, 0, .35, 1);
-  --shadow-float: 0 30px 60px -24px rgba(28, 29, 34, .3);
+  --shadow-float: 0 30px 60px -24px rgba(43, 36, 28, .35);
+  --shadow-sketch: 5px 5px 0 0 var(--ink);
+  --shadow-sketch-sm: 3px 3px 0 0 var(--ink);
 }

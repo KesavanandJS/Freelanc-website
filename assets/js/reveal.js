@@ -29,4 +29,21 @@
     });
   }, { rootMargin: '0px 0px -12% 0px', threshold: 0.08 });
   items.forEach(function (el) { io.observe(el); });
+
+  // Gentle scroll-linked parallax on the hero visual, for a bit of 3D depth.
+  var parallax = document.querySelector('.hero__visual');
+  if (parallax && !reduce) {
+    var ticking = false;
+    function update() {
+      var rect = parallax.getBoundingClientRect();
+      var mid = rect.top + rect.height / 2 - window.innerHeight / 2;
+      var shift = Math.max(-30, Math.min(30, mid * -0.08));
+      parallax.style.transform = 'translateY(' + shift.toFixed(1) + 'px)';
+      ticking = false;
+    }
+    window.addEventListener('scroll', function () {
+      if (!ticking) { requestAnimationFrame(update); ticking = true; }
+    }, { passive: true });
+    update();
+  }
 })();

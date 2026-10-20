@@ -1,13 +1,11 @@
-/* Closing call-to-action band */
-.cta-band { position: relative; overflow: hidden; background: var(--ink); color: var(--paper); padding-block: clamp(4.5rem, 10vw, 8rem); }
-.cta-band__threads { position: absolute; inset: 0; opacity: .28; background: repeating-linear-gradient(90deg, transparent 0 34px, rgba(255,255,255,.35) 34px 36px), repeating-linear-gradient(0deg, transparent 0 34px, rgba(47,91,224,.9) 34px 37px); -webkit-mask-image: radial-gradient(ellipse at 85% 50%, #000 0 35%, transparent 70%); mask-image: radial-gradient(ellipse at 85% 50%, #000 0 35%, transparent 70%); }
-.cta-band .container { position: relative; display: grid; gap: 2rem; }
-@media (min-width: 900px) { .cta-band .container { grid-template-columns: 1.4fr 1fr; align-items: end; } }
-.cta-band h2 { font-size: var(--step-5); letter-spacing: -0.045em; }
-.cta-band p { color: #D8D3CB; font-size: var(--step-1); }
-.cta-band .btn { --bg: var(--primary); --fg: var(--white); }
-.cta-band .btn::before { background: var(--paper); }
-.cta-band .btn:not(.btn--ghost):hover { color: var(--ink); }
-.cta-band .btn--ghost { --bg: transparent; --fg: var(--paper); box-shadow: inset 0 0 0 2px var(--paper); }
-.cta-band .btn--ghost::before { background: var(--paper); }
-.cta-band .btn--ghost:hover { color: var(--ink); }
+/* Closing call-to-action band: a hand-drawn sticker card, not a full-bleed dark section */
+.cta-band { position: relative; overflow: hidden; background: var(--highlight); color: var(--ink); border: 2px solid var(--ink); border-radius: var(--r-sketch); box-shadow: var(--shadow-sketch); width: calc(100% - 2 * var(--gutter)); max-width: 900px; margin: var(--section) auto; padding-block: clamp(2.6rem, 6vw, 4.2rem); }
+.cta-band__threads { display: none; }
+.cta-band .container { position: relative; display: grid; gap: 1.2rem; justify-items: center; text-align: center; max-width: 46rem; margin-inline: auto; }
+.cta-band h2 { font-size: var(--step-5); letter-spacing: -0.015em; }
+.cta-band p { color: var(--ink); opacity: .78; font-size: var(--step-1); max-width: 38rem; margin-inline: auto; }
+.cta-band .btn-row { justify-content: center; margin-top: .4rem !important; }
+.cta-band .btn { --bg: var(--ink); --fg: var(--highlight); border-color: var(--ink); }
+.cta-band .btn:hover { box-shadow: 5px 5px 0 0 rgba(43,36,28,.35); }
+.cta-band .btn--ghost { --bg: var(--white); --fg: var(--ink); }
+.cta-band .accent { background: var(--ink); color: var(--highlight); }
