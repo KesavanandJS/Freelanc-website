@@ -2,7 +2,7 @@
 Every page is written to <slug>/index.html so URLs stay clean (/website-designer-coimbatore/)."""
 from pathlib import Path
 from html import escape
-from layout import (BRAND, DOMAIN, EMAIL, WHATSAPP, PHONE_DISPLAY, ICON, logo_mark, wa_link, rel, page, breadcrumb,
+from layout import (BRAND, DOMAIN, EMAIL, GOOGLE_SHEET_WEBHOOK, ICON, rel, page, breadcrumb,
                     business_schema, faq_schema, service_schema, faq_block, process_block, cta_block)
 from content_services import SERVICES, PRICE_LANDING, PRICE_STATIC, PRICE_SHOPIFY_BASIC, PRICE_SHOPIFY_ADVANCED
 
@@ -245,8 +245,8 @@ def build_home():
     css = ["components/weave.css", "components/marquee.css", "components/service-list.css", "components/process.css", "components/faq.css", "pages/home.css"]
     js = ["weave.js", "process.js", "faq.js"]
     schema = [business_schema(), {"@context": "https://schema.org", "@type": "WebSite", "name": BRAND, "url": f"{DOMAIN}/"}, faq_schema(HOME_FAQS)]
-    write(path, page(path, "Website Designer in Coimbatore & Tiruppur | PixelLoom",
-                     "Website designer for Coimbatore and Tiruppur boutiques, clothing brands and businesses. Shopify, WordPress and custom sites that sell on mobile. Free quote on WhatsApp.",
+    write(path, page(path, "Website Designer in Coimbatore & Tiruppur | ProjectNest",
+                     "Website designer for Coimbatore and Tiruppur boutiques, clothing brands and businesses. Shopify, WordPress and custom sites that sell on mobile. Free quote by email.",
                      body, css, js, schema))
 
 
@@ -283,7 +283,7 @@ def build_services_hub():
 {faq_block(faqs, mist=True)}
 {cta_block(path)}
 """
-    write(path, page(path, "Web Design & Development Services in Tamil Nadu | PixelLoom",
+    write(path, page(path, "Web Design & Development Services in Tamil Nadu | ProjectNest",
                      "Web design and development services: custom HTML websites, WordPress, Shopify and ecommerce stores, landing pages and maintenance for Coimbatore and Tiruppur businesses.",
                      body, ["components/weave.css", "components/service-list.css", "components/process.css", "components/faq.css", "pages/service.css", "pages/home.css"],
                      ["weave.js", "process.js", "faq.js"], [crumb_ld, faq_schema(faqs)]))
@@ -306,7 +306,7 @@ def build_service(s):
     <h1 data-split>{escape(s['h1'])}</h1>
     <p class="lead hero__fade" style="--d:.8s">{escape(s['lead'])}</p>
     <div class="btn-row hero__fade" style="--d:1s"><a class="btn" href="{p}contact/">Get a free quote</a>
-      <a class="btn btn--ghost" href="{wa_link('Hi! I would like to know more about ' + s['nav'].lower() + '.')}" target="_blank" rel="noopener">{ICON['whatsapp']} Chat on WhatsApp</a></div>
+      <a class="btn btn--ghost" href="mailto:{EMAIL}">{ICON['mail']} Email me</a></div>
   </div>
   <div class="page-hero__swatch" aria-hidden="true"><div class="weave" data-weave="{s['weave']}" data-gap="30"></div></div></div>
 </div></section>
@@ -352,7 +352,7 @@ CITIES = [
     dict(
         slug="website-designer-coimbatore/", name="Coimbatore", alt=["Kovai", "CBE"],
         title="Website Designer in Coimbatore | Boutique & Shopify Sites",
-        meta="Website designer for Coimbatore boutiques and brands. Shopify, WordPress and custom sites that sell on mobile. Fixed prices. Chat on WhatsApp.",
+        meta="Website designer for Coimbatore boutiques and brands. Shopify, WordPress and custom sites that sell on mobile. Fixed prices. Free quote by email.",
         h1="Website designer in Coimbatore for boutiques, brands and local businesses",
         lead="Your customers already find you on Instagram. Give them a store they can buy from at 11 pm without waiting for a DM reply. I design and build Shopify, WordPress and custom websites for Coimbatore businesses: fast on mobile, easy to update, and set up to rank on Google.",
         intro_title="Websites for Coimbatore businesses that are ready to sell online",
@@ -443,7 +443,7 @@ def build_city(c):
   <h1>{escape(c['h1'])}</h1>
   <p class="lead">{escape(c['lead'])}</p>
   <div class="btn-row"><a class="btn" href="{p}contact/">Get a free quote</a>
-    <a class="btn btn--ghost" href="{wa_link('Hi! I have a business in ' + c['name'] + ' and need a website.')}" target="_blank" rel="noopener">{ICON['whatsapp']} Chat on WhatsApp</a></div>
+    <a class="btn btn--ghost" href="mailto:{EMAIL}">{ICON['mail']} Email me</a></div>
   <p class="hero__note" style="margin-top:1.6rem;color:var(--ink-soft)"><i aria-hidden="true"></i><span>Now booking projects for <span data-booking-month>next month</span>.</span></p>
 </div></section>
 
@@ -547,7 +547,7 @@ def build_pricing():
 {faq_block(PRICING_FAQS, mist=True)}
 {cta_block(path)}
 """
-    write(path, page(path, "Website Development Cost in India | Packages & Prices | PixelLoom",
+    write(path, page(path, "Website Development Cost in India | Packages & Prices | ProjectNest",
                      "Clear, fixed prices for HTML, WordPress and Shopify websites. See what each package includes, add-ons and payment terms. No hidden costs.",
                      body, ["components/faq.css", "pages/home.css", "pages/service.css", "pages/pricing.css"], ["pricing.js", "faq.js"], [crumb_ld, faq_schema(PRICING_FAQS)]))
 
@@ -568,8 +568,8 @@ def build_work():
 </div></section>
 {cta_block(path)}
 """
-    write(path, page(path, "Website Design Portfolio | Projects by PixelLoom",
-                     "Shopify stores built for fashion, beauty and lifestyle brands. See recent web design work by PixelLoom.",
+    write(path, page(path, "Website Design Portfolio | Projects by ProjectNest",
+                     "Shopify stores built for fashion, beauty and lifestyle brands. See recent web design work by ProjectNest.",
                      body, ["pages/home.css", "pages/service.css", "pages/work.css"], ["work-filter.js"], [crumb_ld]))
 
 
@@ -585,7 +585,7 @@ def build_about():
     <p class="lead hero__fade" style="--d:.8s">I work with boutiques, clothing brands and local businesses who want a website that looks like them and actually brings in customers. I also write the words, so your site says the right things as well as looking good.</p>
     <div class="btn-row hero__fade" style="--d:1s"><a class="btn" href="{p}contact/">Work with me</a><a class="btn btn--ghost" href="{p}work/">See my work</a></div>
   </div>
-  <div class="portrait" role="img" aria-label="{BRAND} logo">{logo_mark(light=True)}</div></div>
+  <div class="portrait" role="img" aria-label="{BRAND}">{BRAND[0]}</div></div>
 </div></section>
 <section class="band band--mist" aria-labelledby="story-title"><div class="container split">
   <div class="section-head" data-reveal><h2 id="story-title">How I work</h2></div>
@@ -626,17 +626,15 @@ def build_contact():
 <section class="band band--tight"><div class="container split">
   <div>
     <div class="contact-ways">
-      <a class="contact-way" href="{wa_link()}" target="_blank" rel="noopener">{ICON['wa-circle']}<span><strong>WhatsApp</strong><span>Fastest way to reach me</span></span></a>
-      <a class="contact-way" href="tel:{PHONE_DISPLAY.replace(' ', '')}">{ICON['phone']}<span><strong>Call</strong><span>{PHONE_DISPLAY}</span></span></a>
       <a class="contact-way" href="mailto:{EMAIL}">{ICON['mail']}<span><strong>Email</strong><span>{EMAIL}</span></span></a>
     </div>
     <p class="muted" style="margin-top:2rem">Serving Coimbatore, Tiruppur and all of Tamil Nadu. Meetings by appointment.</p>
   </div>
-  <form class="form" action="{p}thank-you/" data-quote-form data-whatsapp="{WHATSAPP}" novalidate>
+  <form class="form" action="{p}thank-you/" data-quote-form data-sheet-url="{GOOGLE_SHEET_WEBHOOK}" novalidate>
     <h2 style="font-size:var(--step-3)">Request a free quote</h2>
     <div class="form__row">
       <div class="field"><label for="f-name">Your name</label><input id="f-name" name="name" autocomplete="name" required><span class="field__error">Enter your name.</span></div>
-      <div class="field"><label for="f-phone">Phone or WhatsApp</label><input id="f-phone" name="phone" type="tel" autocomplete="tel" pattern="[0-9+ ]{{10,15}}" required><span class="field__error">Enter a 10-digit phone number.</span></div>
+      <div class="field"><label for="f-phone">Phone or WhatsApp</label><input id="f-phone" name="phone" type="tel" autocomplete="tel" pattern="[0-9+ ]{{10,15}}" required><span class="field__error">Enter a real 10-digit phone number.</span></div>
     </div>
     <div class="field"><label for="f-business">Business name and what you sell</label><input id="f-business" name="business" required><span class="field__error">Tell me a little about your business.</span></div>
     <div class="form__row">
@@ -644,13 +642,14 @@ def build_contact():
       <div class="field"><label for="f-budget">Budget range</label><select id="f-budget" name="budget" required><option value="">Choose one</option><option>Under ₹15,000</option><option>₹15,000 to ₹30,000</option><option>₹30,000 to ₹60,000</option><option>Above ₹60,000</option></select><span class="field__error">Choose a budget range.</span></div>
     </div>
     <div class="field"><label for="f-msg">Anything else? <span class="field__hint">(optional)</span></label><textarea id="f-msg" name="message"></textarea></div>
-    <div class="btn-row"><button class="btn" type="submit">Send on WhatsApp</button></div>
+    <div class="btn-row"><button class="btn" type="submit">Send my enquiry</button></div>
+    <p class="muted" style="margin-top:1rem;font-size:.9rem">We'll get back to you by email.</p>
     <p class="form__status" role="status" aria-live="polite"></p>
   </form>
 </div></section>
 """
     write(path, page(path, "Contact a Website Designer in Coimbatore & Tiruppur | Free Quote",
-                     "Request a free website quote. Message on WhatsApp, call or email. Replies within 24 hours.",
+                     "Request a free website quote by email or using the quote form. Replies within 24 hours.",
                      body, ["components/forms.css", "pages/home.css", "pages/service.css", "pages/contact.css"], ["contact.js"], [crumb_ld, business_schema()]))
 
 
@@ -672,7 +671,7 @@ def build_blog():
 <section class="band band--tight"><div class="container"><ul class="posts">{posts}</ul></div></section>
 {cta_block(path)}
 """
-    write(path, page(path, "Website Tips for Small Businesses | PixelLoom Blog",
+    write(path, page(path, "Website Tips for Small Businesses | ProjectNest Blog",
                      "Guides on website costs in India, choosing between HTML, WordPress and Shopify, and getting your business found on Google.",
                      body, ["pages/home.css", "pages/service.css", "pages/blog.css"], [], [crumb_ld]))
 
@@ -700,7 +699,7 @@ def build_utility():
     path = "thank-you/"
     p = rel(path)
     body = f"""<section class="notfound"><div class="container--narrow"><h1 style="font-size:var(--step-5);background:none;color:var(--ink)">Thank you!</h1>
-<p class="lead">Your enquiry is ready in WhatsApp. Press send there, and I'll reply within 24 hours.</p>
+<p class="lead">Your enquiry has been sent. I'll reply by email within 24 hours.</p>
 <div class="btn-row" style="justify-content:center"><a class="btn" href="{p or './'}">Back to home</a><a class="btn btn--ghost" href="{p}work/">See my work</a></div></div></section>"""
     write(path, page(path, f"Thank you | {BRAND}", "Your enquiry has been sent.", body, ["pages/legal.css"], [], None, noindex=True))
     # 404 at root as 404.html

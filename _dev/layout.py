@@ -7,13 +7,12 @@ from pathlib import Path
 # ---------------------------------------------------------------------------
 # Site settings: change these once and rebuild (python _dev/build.py)
 # ---------------------------------------------------------------------------
-BRAND = "PixelLoom"
+BRAND = "ProjectNest"
 DOMAIN = "https://pixelloom.in"          # your final domain, no trailing slash
-WHATSAPP = "91XXXXXXXXXX"                 # country code + number, digits only
-PHONE_DISPLAY = "+91 XXXXX XXXXX"
-EMAIL = "hello@pixelloom.in"
+EMAIL = "projectnest20@gmail.com"
 INSTAGRAM = "https://www.instagram.com/"  # your profile URL
 GBP_URL = ""                              # Google Business Profile URL once live
+GOOGLE_SHEET_WEBHOOK = "https://script.google.com/macros/s/AKfycbxQ-VYTuXCd4So8m5C9oxdv8knOl9UM2TTU7mVE-JDnd9IRsF2YQGwMwmy_LZlyvydFSw/exec"  # Apps Script Web App URL that logs quote-form leads to a Sheet — see _dev/leads-apps-script.gs
 CITIES = ["Coimbatore", "Tiruppur"]
 
 FONTS = ("https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500;1,600"
@@ -58,21 +57,11 @@ INLINE_CSS = "".join(_minify_css((_ASSETS_CSS / f).read_text(encoding="utf-8")) 
 # ---------------------------------------------------------------------------
 # Icons (inline SVG, inherit currentColor where possible)
 # ---------------------------------------------------------------------------
-def logo_mark(light=False):
-    warp = "#F7EFE1" if light else "currentColor"
-    return (f'<svg viewBox="0 0 34 34" aria-hidden="true" focusable="false"><g fill="none" stroke-width="5" stroke-linecap="round">'
-            f'<path d="M9 4v26M17 4v26M25 4v26" stroke="{warp}"/>'
-            f'<path d="M4 9h26" stroke="#D9713F"/><path d="M4 17h26" stroke="#D9713F"/><path d="M4 25h26" stroke="#D9713F"/>'
-            f'<path d="M9 6v6M25 6v6M17 14v6M9 22v6M25 22v6" stroke="{warp}"/></g></svg>')
-
 ICON = {
     "check": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg>',
     "needle": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>',
     "caret": '<svg class="nav__caret" viewBox="0 0 10 10" aria-hidden="true"><path d="M1 3l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>',
-    "whatsapp": '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.1 5.1 0 0 0 1.1 2.7 11.7 11.7 0 0 0 4.5 4c1.7.7 2.3.8 3.2.7a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg>',
-    "phone": '<svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="24" fill="#F0E3CC"/><path d="M19 14l3 6-2.5 2a14 14 0 0 0 6.5 6.5l2-2.5 6 3-1 4.5c-9.5 0-18-8.5-18-18z" fill="#D9713F"/></svg>',
     "mail": '<svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="24" fill="#F0E3CC"/><rect x="13" y="16" width="22" height="16" rx="3" fill="none" stroke="#B8572B" stroke-width="2.4"/><path d="M14 18l10 7 10-7" fill="none" stroke="#B8572B" stroke-width="2.4"/></svg>',
-    "wa-circle": '<svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="24" fill="#F0E3CC"/><g transform="translate(12 12)" fill="#22A06B"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm4.5 12.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.1 5.1 0 0 0 1.1 2.7 11.7 11.7 0 0 0 4.5 4c1.7.7 2.3.8 3.2.7a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></g></svg>',
     "glyph": '<svg viewBox="0 0 28 28" aria-hidden="true"><g stroke-width="4" stroke-linecap="round" fill="none"><path d="M9 3v22M19 3v22" stroke="#2B241C"/><path d="M3 9h22" stroke="#D9713F"/><path d="M3 19h22" stroke="#B8572B"/><path d="M9 5v8M19 15v8" stroke="#2B241C"/></g></svg>',
     "globe": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><line x1="3" y1="12" x2="21" y2="12"/><path d="M12 3c2.5 2.5 2.5 15.5 0 18M12 3c-2.5 2.5-2.5 15.5 0 18"/></svg>',
     # Generic stroke icons for "fit"/"values" style benefit cards across the site.
@@ -115,11 +104,6 @@ NAV_SERVICES = [
     ("website-maintenance/", "Website maintenance", "Updates, backups and fixes every month"),
 ]
 NAV_MAIN = [("work/", "Work"), ("pricing/", "Pricing"), ("about/", "About"), ("blog/", "Blog")]
-
-
-def wa_link(text="Hi! I'd like a quote for a website."):
-    from urllib.parse import quote
-    return f"https://wa.me/{WHATSAPP}?text={quote(text)}"
 
 
 def rel(path):
@@ -183,7 +167,7 @@ def header(path):
 <div class="scroll-thread" aria-hidden="true"><span></span></div>
 <header class="site-header">
   <div class="container site-header__inner">
-    <a class="brand" href="{p or './'}" aria-label="{BRAND} home">{logo_mark()}<span>{BRAND}</span></a>
+    <a class="brand" href="{p or './'}" aria-label="{BRAND} home"><span>{BRAND}</span></a>
     <nav class="nav" aria-label="Main">
       <ul class="nav__list">
         <li class="nav__item--drop">
@@ -203,7 +187,7 @@ def header(path):
     {mob_main}
     <li><a href="{p}contact/">Contact</a></li>
   </ul>
-  <a class="btn" href="{wa_link()}" target="_blank" rel="noopener">{ICON['whatsapp']} Chat on WhatsApp</a>
+  <a class="btn" href="mailto:{EMAIL}">{ICON['mail']} Email me</a>
 </div>
 <main id="main">"""
 
@@ -222,7 +206,7 @@ def footer(path, js):
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a class="brand" href="{p or './'}">{logo_mark(light=True)}<span>{BRAND}</span></a>
+        <a class="brand" href="{p or './'}"><span>{BRAND}</span></a>
         <p>Websites for boutiques, clothing brands and local businesses in Coimbatore, Tiruppur and across Tamil Nadu.</p>
       </div>
       <div>
@@ -241,7 +225,6 @@ def footer(path, js):
       <div>
         <h2>Talk to me</h2>
         <ul>
-          <li><a href="{wa_link()}" target="_blank" rel="noopener">WhatsApp {PHONE_DISPLAY}</a></li>
           <li><a href="mailto:{EMAIL}">{EMAIL}</a></li>
           <li><a href="{INSTAGRAM}" target="_blank" rel="noopener">Instagram</a></li>
           <li>Meetings by appointment</li>
@@ -280,7 +263,7 @@ def breadcrumb(path, trail):
 
 def business_schema():
     s = {"@context": "https://schema.org", "@type": "ProfessionalService", "@id": f"{DOMAIN}/#business",
-         "name": BRAND, "url": f"{DOMAIN}/", "email": EMAIL, "telephone": PHONE_DISPLAY, "priceRange": "₹₹",
+         "name": BRAND, "url": f"{DOMAIN}/", "email": EMAIL, "priceRange": "₹₹",
          "address": {"@type": "PostalAddress", "addressRegion": "Tamil Nadu", "addressCountry": "IN"},
          "areaServed": [{"@type": "City", "name": "Coimbatore", "alternateName": ["Kovai", "CBE"]},
                         {"@type": "City", "name": "Tiruppur", "alternateName": ["Tirupur"]}],
@@ -348,7 +331,7 @@ def cta_block(path, title="Let's build your <span class=\"accent\">website.</spa
       <p>{text}</p>
       <div class="btn-row" style="margin-top:1.6rem">
         <a class="btn" href="{p}contact/">Get a free quote</a>
-        <a class="btn btn--ghost" href="{wa_link()}" target="_blank" rel="noopener">{ICON['whatsapp']} Chat on WhatsApp</a>
+        <a class="btn btn--ghost" href="mailto:{EMAIL}">{ICON['mail']} Email me</a>
       </div>
     </div>
   </div>
