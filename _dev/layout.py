@@ -15,9 +15,14 @@ GBP_URL = ""                              # Google Business Profile URL once liv
 GOOGLE_SHEET_WEBHOOK = "https://script.google.com/macros/s/AKfycbxQ-VYTuXCd4So8m5C9oxdv8knOl9UM2TTU7mVE-JDnd9IRsF2YQGwMwmy_LZlyvydFSw/exec"  # Apps Script Web App URL that logs quote-form leads to a Sheet — see _dev/leads-apps-script.gs
 CITIES = ["Coimbatore", "Tiruppur"]
 
-FONTS = ("https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500;1,600"
-         "&family=Hanken+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500"
-         "&family=Caveat:wght@600;700&display=swap")
+# Fraunces is split into its own request with display=optional: it's the large display/heading
+# font, and swapping it in late reflows the hero heading enough to shift everything below it
+# (measured ~0.12 CLS). display=optional means the browser only uses it if it's already cached
+# by the time layout starts, so there's no later swap-triggered reflow; worst case a first-time
+# visitor sees the fallback serif for that one load, and gets Fraunces on every visit after.
+FONTS_DISPLAY = "https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500;1,600&display=optional"
+FONTS = ("https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700"
+         "&family=IBM+Plex+Mono:wght@400;500&family=Caveat:wght@600;700&display=swap")
 
 BASE_CSS = ["base/tokens.css", "base/reset.css", "base/typography.css",
             "layout/layout.css", "layout/header.css", "layout/footer.css",
@@ -145,8 +150,9 @@ def head(path, title, desc, css, schema=None, noindex=False, preload=""):
   <link rel="icon" href="{p}assets/img/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="{FONTS_DISPLAY}" media="print" onload="this.media='all'">
   <link rel="stylesheet" href="{FONTS}" media="print" onload="this.media='all'">
-  <noscript><link rel="stylesheet" href="{FONTS}"></noscript>
+  <noscript><link rel="stylesheet" href="{FONTS_DISPLAY}"><link rel="stylesheet" href="{FONTS}"></noscript>
 {preload}
 {links}
 {ld}

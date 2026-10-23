@@ -245,12 +245,9 @@ def build_home():
     css = ["components/weave.css", "components/marquee.css", "components/service-list.css", "components/process.css", "components/faq.css", "pages/home.css"]
     js = ["weave.js", "process.js", "faq.js"]
     schema = [business_schema(), {"@context": "https://schema.org", "@type": "WebSite", "name": BRAND, "url": f"{DOMAIN}/"}, faq_schema(HOME_FAQS)]
-    preload = (f'  <link rel="preload" as="image" href="assets/img/website-designer-coimbatore-tiruppur-hero.webp" '
-               f'imagesrcset="assets/img/website-designer-coimbatore-tiruppur-hero-750.webp 750w, assets/img/website-designer-coimbatore-tiruppur-hero.webp 950w" '
-               f'imagesizes="(min-width: 1000px) 560px, 90vw" fetchpriority="high">')
     write(path, page(path, "Website Designer in Coimbatore & Tiruppur | Site to Scale",
                      "Website designer for Coimbatore and Tiruppur boutiques, clothing brands and businesses. Shopify, WordPress and custom sites that sell on mobile. Free quote by email.",
-                     body, css, js, schema, preload=preload))
+                     body, css, js, schema))
 
 
 # ===========================================================================
