@@ -7,8 +7,8 @@ from pathlib import Path
 # ---------------------------------------------------------------------------
 # Site settings: change these once and rebuild (python _dev/build.py)
 # ---------------------------------------------------------------------------
-BRAND = "ProjectNest"
-DOMAIN = "https://pixelloom.in"          # your final domain, no trailing slash
+BRAND = "Site to Scale"
+DOMAIN = "https://sitetoscale.in"        # your final domain, no trailing slash
 EMAIL = "projectnest20@gmail.com"
 INSTAGRAM = "https://www.instagram.com/"  # your profile URL
 GBP_URL = ""                              # Google Business Profile URL once live

@@ -172,7 +172,7 @@ def build_home():
       </div>
     </div>
     <div class="hero__visual" aria-hidden="true">
-      <div class="hero__sketch"><img src="{p}assets/img/website-designer-coimbatore-tiruppur-hero.webp" alt="Website designer in Coimbatore and Tiruppur: hand-drawn desk illustration with a laptop, sketchbook and tailoring tools" width="950" height="950" fetchpriority="high"></div>
+      <div class="hero__sketch"><img src="{p}assets/img/website-designer-coimbatore-tiruppur-hero.webp" srcset="{p}assets/img/website-designer-coimbatore-tiruppur-hero-640.webp 640w, {p}assets/img/website-designer-coimbatore-tiruppur-hero.webp 950w" sizes="(min-width: 1000px) 560px, 90vw" alt="Website designer in Coimbatore and Tiruppur: hand-drawn desk illustration with a laptop, sketchbook and tailoring tools" width="950" height="950" fetchpriority="high"></div>
       <div class="phone__toast"><i></i>New order received</div>
     </div>
   </div>
@@ -245,7 +245,7 @@ def build_home():
     css = ["components/weave.css", "components/marquee.css", "components/service-list.css", "components/process.css", "components/faq.css", "pages/home.css"]
     js = ["weave.js", "process.js", "faq.js"]
     schema = [business_schema(), {"@context": "https://schema.org", "@type": "WebSite", "name": BRAND, "url": f"{DOMAIN}/"}, faq_schema(HOME_FAQS)]
-    write(path, page(path, "Website Designer in Coimbatore & Tiruppur | ProjectNest",
+    write(path, page(path, "Website Designer in Coimbatore & Tiruppur | Site to Scale",
                      "Website designer for Coimbatore and Tiruppur boutiques, clothing brands and businesses. Shopify, WordPress and custom sites that sell on mobile. Free quote by email.",
                      body, css, js, schema))
 
@@ -283,7 +283,7 @@ def build_services_hub():
 {faq_block(faqs, mist=True)}
 {cta_block(path)}
 """
-    write(path, page(path, "Web Design & Development Services in Tamil Nadu | ProjectNest",
+    write(path, page(path, "Web Design & Development Services in Tamil Nadu | Site to Scale",
                      "Web design and development services: custom HTML websites, WordPress, Shopify and ecommerce stores, landing pages and maintenance for Coimbatore and Tiruppur businesses.",
                      body, ["components/weave.css", "components/service-list.css", "components/process.css", "components/faq.css", "pages/service.css", "pages/home.css"],
                      ["weave.js", "process.js", "faq.js"], [crumb_ld, faq_schema(faqs)]))
@@ -547,7 +547,7 @@ def build_pricing():
 {faq_block(PRICING_FAQS, mist=True)}
 {cta_block(path)}
 """
-    write(path, page(path, "Website Development Cost in India | Packages & Prices | ProjectNest",
+    write(path, page(path, "Website Development Cost in India | Packages & Prices | Site to Scale",
                      "Clear, fixed prices for HTML, WordPress and Shopify websites. See what each package includes, add-ons and payment terms. No hidden costs.",
                      body, ["components/faq.css", "pages/home.css", "pages/service.css", "pages/pricing.css"], ["pricing.js", "faq.js"], [crumb_ld, faq_schema(PRICING_FAQS)]))
 
@@ -568,8 +568,8 @@ def build_work():
 </div></section>
 {cta_block(path)}
 """
-    write(path, page(path, "Website Design Portfolio | Projects by ProjectNest",
-                     "Shopify stores built for fashion, beauty and lifestyle brands. See recent web design work by ProjectNest.",
+    write(path, page(path, "Website Design Portfolio | Projects by Site to Scale",
+                     "Shopify stores built for fashion, beauty and lifestyle brands. See recent web design work by Site to Scale.",
                      body, ["pages/home.css", "pages/service.css", "pages/work.css"], ["work-filter.js"], [crumb_ld]))
 
 
@@ -671,7 +671,7 @@ def build_blog():
 <section class="band band--tight"><div class="container"><ul class="posts">{posts}</ul></div></section>
 {cta_block(path)}
 """
-    write(path, page(path, "Website Tips for Small Businesses | ProjectNest Blog",
+    write(path, page(path, "Website Tips for Small Businesses | Site to Scale Blog",
                      "Guides on website costs in India, choosing between HTML, WordPress and Shopify, and getting your business found on Google.",
                      body, ["pages/home.css", "pages/service.css", "pages/blog.css"], [], [crumb_ld]))
 

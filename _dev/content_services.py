@@ -12,7 +12,7 @@ SERVICES = [
     # ---------------- Platform hubs ----------------
     dict(
         slug="custom-website-development/", nav="Custom HTML websites", weave="peacock",
-        title="Custom HTML Website Development in Coimbatore & Tiruppur | ProjectNest",
+        title="Custom HTML Website Development in Coimbatore & Tiruppur | Site to Scale",
         meta="Hand-coded HTML, CSS and JavaScript websites that load in under 2 seconds. Ideal for business profiles and landing pages. Fixed price, free quote.",
         h1="Custom HTML website development",
         lead="Hand-coded, lightning-fast websites with no monthly platform fees. Ideal for business profiles, portfolios and campaign pages that need to load instantly.",
@@ -39,7 +39,7 @@ SERVICES = [
     ),
     dict(
         slug="wordpress-website-development/", nav="WordPress websites", weave="turmeric",
-        title="WordPress Website Development in Coimbatore & Tiruppur | ProjectNest",
+        title="WordPress Website Development in Coimbatore & Tiruppur | Site to Scale",
         meta="Custom WordPress websites you can update yourself: fast, secure and SEO-ready. Business sites and blogs. Free quote.",
         h1="WordPress website development",
         lead="Professional WordPress websites you can edit without a developer. Built lean, kept fast and set up properly for Google from day one.",
@@ -119,7 +119,7 @@ SERVICES = [
     ),
     dict(
         slug="landing-page-design/", nav="Landing pages", weave="turmeric",
-        title="Landing Page Design for Google & Meta Ads | ProjectNest",
+        title="Landing Page Design for Google & Meta Ads | Site to Scale",
         meta="High-converting landing pages for Google and Instagram ads. Fast, focused and built around one action. Delivered in about a week.",
         h1="Landing page design that turns ad clicks into enquiries",
         lead="One focused page for one offer, built to load fast and lead every visitor to a single action: call, WhatsApp or book.",
@@ -142,7 +142,7 @@ SERVICES = [
     ),
     dict(
         slug="website-maintenance/", nav="Website maintenance", weave="peacock",
-        title="Website Maintenance Services | WordPress & Shopify Support | ProjectNest",
+        title="Website Maintenance Services | WordPress & Shopify Support | Site to Scale",
         meta="Monthly website care: updates, backups, security checks, speed fixes and small edits for WordPress, Shopify and HTML sites.",
         h1="Website maintenance and monthly care",
         lead="Keep your site fast, safe and up to date without thinking about it. Updates, backups, fixes and small edits every month.",
@@ -167,7 +167,7 @@ SERVICES = [
     # ---------------- Industries ----------------
     dict(
         slug="website-for-boutiques/", nav="Websites for boutiques", weave="pink",
-        title="Boutique Website Design | Shopify Stores for Boutiques | ProjectNest",
+        title="Boutique Website Design | Shopify Stores for Boutiques | Site to Scale",
         meta="Boutique website design for Coimbatore and Tamil Nadu fashion labels: collections, size charts, WhatsApp ordering, payments and COD on Shopify.",
         h1="Boutique website design that feels like your store",
         lead="Your customers already love your Instagram. Give them a store where they can browse every collection, check sizes and order at any hour.",
@@ -194,7 +194,7 @@ SERVICES = [
     ),
     dict(
         slug="website-for-saree-sellers/", nav="Websites for saree sellers", weave="turmeric",
-        title="Saree Website Development | Online Saree Store Design | ProjectNest",
+        title="Saree Website Development | Online Saree Store Design | Site to Scale",
         meta="Online saree stores for weavers, resellers and silk shops: fabric filters, video, WhatsApp ordering, payments and pan-India shipping.",
         h1="Saree websites that sell beyond WhatsApp",
         lead="Show every weave, colour and border clearly, take payments and ship across India, without answering the same questions all day.",
