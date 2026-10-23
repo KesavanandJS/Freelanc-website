@@ -114,7 +114,7 @@ def rel(path):
 # ---------------------------------------------------------------------------
 # Page parts
 # ---------------------------------------------------------------------------
-def head(path, title, desc, css, schema=None, noindex=False):
+def head(path, title, desc, css, schema=None, noindex=False, preload=""):
     p = rel(path)
     url = f"{DOMAIN}/{path}"
     # CSS is inlined (INLINE_CSS, built once at import time) rather than linked,
@@ -147,6 +147,7 @@ def head(path, title, desc, css, schema=None, noindex=False):
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="{FONTS}" media="print" onload="this.media='all'">
   <noscript><link rel="stylesheet" href="{FONTS}"></noscript>
+{preload}
 {links}
 {ld}
 </head>"""
@@ -338,5 +339,5 @@ def cta_block(path, title="Let's build your <span class=\"accent\">website.</spa
 </section>"""
 
 
-def page(path, title, desc, body, css=(), js=(), schema=None, noindex=False):
-    return head(path, title, desc, list(css), schema, noindex) + "\n" + header(path) + "\n" + body + "\n" + footer(path, list(js))
+def page(path, title, desc, body, css=(), js=(), schema=None, noindex=False, preload=""):
+    return head(path, title, desc, list(css), schema, noindex, preload) + "\n" + header(path) + "\n" + body + "\n" + footer(path, list(js))
